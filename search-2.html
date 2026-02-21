@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>District AI Assistant Library</title>
-    <!-- Tailwind CSS for styling -->
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
         .line-clamp-1 {
             display: -webkit-box;
             -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -28,16 +31,16 @@
         #loading-screen { transition: opacity 0.3s ease-out; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
 
+<body class="bg-slate-50 text-slate-900 min-h-screen">
     <div id="app" class="max-w-6xl mx-auto p-4 md:p-8">
-        <!-- Loading State -->
+        <!-- Loading -->
         <div id="loading-screen" class="fixed inset-0 flex flex-col items-center justify-center bg-slate-50 z-50">
             <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-blue-600 mb-4"></i>
             <p class="font-medium text-slate-600 animate-pulse">Syncing with District Library...</p>
         </div>
 
-        <!-- Error State (Hidden by default) -->
+        <!-- Error -->
         <div id="error-container" class="hidden mb-6 p-6 bg-red-50 border border-red-200 rounded-xl flex flex-col gap-4 text-red-700 shadow-sm transition-all animate-in fade-in zoom-in-95 duration-300">
             <div class="flex items-start gap-4">
                 <i data-lucide="alert-circle" class="w-6 h-6 shrink-0 mt-0.5"></i>
@@ -47,9 +50,10 @@
                     <div class="mt-4 p-3 bg-white/50 rounded-lg border border-red-100 text-xs font-mono">
                         <strong>Troubleshooting Checklist:</strong>
                         <ul class="list-disc ml-4 mt-2 space-y-1">
-                            <li>Is your Apps Script deployment set to <strong>Who has access: Anyone</strong>?</li>
-                            <li>Did you paste the <strong>Web app URL</strong> into the code?</li>
-                            <li>Is the sheet/tab name correct in the Apps Script?</li>
+                            <li>Is your Apps Script deployed as a <strong>Web App</strong>?</li>
+                            <li>Are you using the <strong>/exec</strong> URL (not /dev)?</li>
+                            <li>Is access set correctly (domain-only vs anyone) for your hosting?</li>
+                            <li>Your network may block cross-site requests; Google Sites hosting usually avoids this.</li>
                         </ul>
                     </div>
                 </div>
@@ -73,18 +77,20 @@
                 </p>
             </div>
             <div class="flex flex-col gap-2 min-w-fit">
-                <a href="https://sites.google.com/aguafria.org/thinkai" target="_blank" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                <a href="https://sites.google.com/aguafria.org/thinkai" target="_blank"
+                   class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
                     <i data-lucide="plus" class="w-5 h-5"></i>
                     Create my own AI assistant
                 </a>
-                <a href="#" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                <a href="#" target="_blank"
+                   class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
                     <i data-lucide="play" class="w-5 h-5 fill-current text-blue-600"></i>
                     Create AI Assistant: How-to Video
                 </a>
             </div>
         </header>
 
-        <!-- Filters Section -->
+        <!-- Filters -->
         <div class="space-y-6 mb-8">
             <div class="flex flex-col md:flex-row gap-4 items-stretch">
                 <div class="relative flex-grow w-full">
@@ -105,12 +111,25 @@
                         <option value="All">All Platforms</option>
                     </select>
 
+                    <!-- View toggle -->
                     <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-sm shrink-0 bg-white h-[48px]">
                         <button id="grid-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
                         </button>
                         <button id="list-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="3" cy="6" r="1" fill="currentColor"></circle><circle cx="3" cy="12" r="1" fill="currentColor"></circle><circle cx="3" cy="18" r="1" fill="currentColor"></circle></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <circle cx="3" cy="6" r="1" fill="currentColor"></circle>
+                                <circle cx="3" cy="12" r="1" fill="currentColor"></circle>
+                                <circle cx="3" cy="18" r="1" fill="currentColor"></circle>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -132,8 +151,10 @@
             </button>
         </div>
 
+        <!-- Grid -->
         <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
+        <!-- List -->
         <div id="list-container" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
@@ -150,6 +171,7 @@
             </div>
         </div>
 
+        <!-- No results -->
         <div id="no-results" class="hidden text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-200 shadow-sm">
             <i data-lucide="search" class="w-12 h-12 text-slate-300 mx-auto mb-4" id="no-results-icon"></i>
             <h3 class="text-xl font-bold text-slate-900">No matches found</h3>
@@ -165,19 +187,31 @@
     </div>
 
     <script>
-        // ✅ Replace this with your Apps Script Web App URL (Deploy → Web app)
-        const SHEET_API_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+        // =========================
+        // CONFIG
+        // =========================
 
+        // Apps Script Web App (/exec) URL (yours)
+        const SHEET_API_URL = "https://script.google.com/macros/s/AKfycby_NSi3IJ0Z4dWwP6yRw8P1sk6BqMbfbwq1U4h9KFUsW5S9hArBLr37r_YwVpZ8LbklyA/exec";
+
+        // Share / suggestion form
         const SHARE_URL = "https://docs.google.com/forms/d/1UNjmdkA__3SQD0JGz_JPVRJYlc2CVPxMGXFazaC-gfE/viewform?edit_requested=true";
 
-        // State
+        // Optional: auto-refresh interval (ms). Set to 0 to disable.
+        const AUTO_REFRESH_MS = 0; // e.g. 300000 for 5 minutes
+
+        // =========================
+        // STATE
+        // =========================
         let assistants = [];
         let searchQuery = "";
         let selectedCategory = "Featured";
         let selectedType = "All";
         let viewMode = "grid";
 
-        // DOM Elements
+        // =========================
+        // DOM
+        // =========================
         const loadingScreen = document.getElementById('loading-screen');
         const errorContainer = document.getElementById('error-container');
         const errorMessage = document.getElementById('error-message');
@@ -196,28 +230,13 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         function safeRefreshIcons() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            } else {
-                setTimeout(safeRefreshIcons, 100);
-            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            else setTimeout(safeRefreshIcons, 100);
         }
 
-        function normalizeRow(entry, index) {
-            const rawStatus = (entry.status || "Live").toString().trim();
-            const status = rawStatus.charAt(0).toUpperCase() + rawStatus.slice(1).toLowerCase();
-
-            return {
-                id: entry.id || `row-${index}`,
-                name: entry.name || "Untitled Assistant",
-                type: entry.type || "Other",
-                status,
-                category: entry.category || "General",
-                url: entry.url || "#",
-                description: entry.description || ""
-            };
-        }
-
+        // =========================
+        // DATA FETCH (APPS SCRIPT JSON)
+        // =========================
         async function fetchData() {
             loadingScreen.style.display = 'flex';
             loadingScreen.style.opacity = '1';
@@ -225,37 +244,40 @@
             refreshIcon.classList.add('animate-spin');
 
             try {
-                const res = await fetch(`${SHEET_API_URL}?t=${Date.now()}`);
-                if (!res.ok) throw new Error(`Server returned status ${res.status}`);
+                const url = `${SHEET_API_URL}?t=${Date.now()}`;
+                const response = await fetch(url);
 
-                const json = await res.json();
-                if (!json || json.ok !== true || !Array.isArray(json.data)) {
-                    throw new Error("Invalid API response. Confirm your Apps Script deployment is set to 'Anyone'.");
+                if (!response.ok) throw new Error(`Server returned status ${response.status}`);
+
+                const json = await response.json();
+
+                // Expected payload from Apps Script:
+                // { ok: true, data: [ {id,name,type,status,category,url,description}, ... ] }
+                if (!json || json.ok !== true) {
+                    throw new Error((json && json.error) ? json.error : "API did not return ok:true");
                 }
 
-                assistants = json.data
-                    .map((row, idx) => normalizeRow(row, idx))
-                    .filter(item => item.name !== "Untitled Assistant" || item.description !== "");
-
-                // If sheet is empty or headers mismatch, this will be 0
-                if (assistants.length === 0) {
-                    throw new Error("No rows returned. Confirm your sheet has a header row and at least one data row.");
-                }
+                assistants = Array.isArray(json.data) ? json.data : [];
 
                 loadingScreen.style.opacity = '0';
                 setTimeout(() => { loadingScreen.style.display = 'none'; }, 300);
+
                 updateFiltersUI();
                 render();
+
             } catch (e) {
                 loadingScreen.style.display = 'none';
                 errorContainer.classList.remove('hidden');
                 errorMessage.textContent =
-                    `Error: ${e.message}. Most common causes: Apps Script not deployed as Web app, access not set to 'Anyone', or the SHEET_NAME in the script is wrong.`;
+                    `Error: ${e.message}. If you're hosting this outside Google Sites/Workspace context and get blocked by CORS/network policy, serve this page from Google Sites or Apps Script.`;
             } finally {
                 refreshIcon.classList.remove('animate-spin');
             }
         }
 
+        // =========================
+        // FILTERS UI
+        // =========================
         function updateFiltersUI() {
             const baseCategories = [...new Set(assistants.map(a => a.category))]
                 .filter(c => c !== "Featured" && c !== "")
@@ -265,25 +287,45 @@
 
             categoryFilters.innerHTML = uniqueCategories.map(cat => `
                 <button
-                    onclick="setCategory('${cat}')"
+                    onclick="setCategory('${escapeHtml_(cat)}')"
                     class="category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all ${selectedCategory === cat ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:bg-blue-50'}"
-                    data-category="${cat}"
+                    data-category="${escapeHtml_(cat)}"
                 >
-                    ${cat}
+                    ${escapeHtml_(cat)}
                 </button>
             `).join('');
 
-            const uniqueTypes = ["All", ...new Set(assistants.map(a => a.type))].filter(t => t !== "").sort();
+            const uniqueTypes = ["All", ...new Set(assistants.map(a => a.type))]
+                .filter(t => t !== "")
+                .sort();
+
             typeFilter.innerHTML = uniqueTypes.map(t => `
-                <option value="${t}" ${selectedType === t ? 'selected' : ''}>${t === 'All' ? 'All Platforms' : t}</option>
+                <option value="${escapeHtml_(t)}" ${selectedType === t ? 'selected' : ''}>
+                    ${t === 'All' ? 'All Platforms' : escapeHtml_(t)}
+                </option>
             `).join('');
         }
 
+        // Minimal escaping for injected UI strings
+        function escapeHtml_(s) {
+            return String(s)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        // =========================
+        // ICONS / BADGES
+        // =========================
         function getPlatformIconHTML(type) {
-            const normalized = (type || "").toLowerCase();
+            const normalized = String(type || '').toLowerCase();
             if (normalized.includes("gpt")) {
                 return `<div class="w-8 h-8 rounded bg-emerald-600 flex items-center justify-center text-white shrink-0 shadow-sm">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
                 </div>`;
             } else if (normalized.includes("gemini") || normalized.includes("gem")) {
                 return `<div class="w-8 h-8 rounded bg-blue-500 flex items-center justify-center text-white shrink-0 shadow-sm">
@@ -297,19 +339,39 @@
             return `<div class="w-8 h-8 rounded bg-slate-400 flex items-center justify-center text-white shrink-0 font-bold text-xs shadow-sm">AI</div>`;
         }
 
+        function getStatusClass(status) {
+            const s = String(status || '').toLowerCase();
+            if (s === 'featured') return 'bg-purple-100 text-purple-700';
+            if (s === 'live') return 'bg-emerald-100 text-emerald-700';
+            return 'bg-amber-100 text-amber-700';
+        }
+
+        // =========================
+        // RENDER
+        // =========================
         function render() {
-            const filtered = assistants.filter(item => {
-                const matchesSearch = searchQuery === "" ||
-                    item.name.toLowerCase().includes(searchQuery) ||
-                    item.description.toLowerCase().includes(searchQuery);
+            const filtered = assistants
+                .filter(item => {
+                    const name = String(item.name || '').toLowerCase();
+                    const desc = String(item.description || '').toLowerCase();
 
-                const matchesCategory = selectedCategory === "All" ||
-                    (selectedCategory === "Featured" ? item.status === "Featured" : item.category === selectedCategory);
+                    const matchesSearch =
+                        searchQuery === "" ||
+                        name.includes(searchQuery) ||
+                        desc.includes(searchQuery);
 
-                const matchesType = selectedType === "All" || item.type === selectedType;
+                    const matchesCategory =
+                        selectedCategory === "All" ||
+                        (selectedCategory === "Featured"
+                            ? String(item.status || '').toLowerCase() === "featured"
+                            : item.category === selectedCategory);
 
-                return matchesSearch && matchesCategory && matchesType;
-            }).sort((a, b) => a.name.localeCompare(b.name));
+                    const matchesType =
+                        selectedType === "All" || item.type === selectedType;
+
+                    return matchesSearch && matchesCategory && matchesType;
+                })
+                .sort((a, b) => String(a.name || '').localeCompare(String(b.name || '')));
 
             resultsCount.textContent = `Found ${filtered.length} assistant${filtered.length !== 1 ? 's' : ''}`;
 
@@ -337,29 +399,39 @@
                     renderList(filtered);
                 }
             }
+
             safeRefreshIcons();
         }
 
         function renderGrid(data) {
             gridContainer.innerHTML = data.map(item => `
-                <a href="${item.url}" target="_blank" rel="noopener" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-blue-400 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col h-full relative">
+                <a href="${escapeHtml_(item.url || '#')}" target="_blank" rel="noopener"
+                   class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-blue-400 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col h-full relative">
                     <div class="flex items-start justify-between mb-4">
                         ${getPlatformIconHTML(item.type)}
                         <div class="flex items-center gap-2">
                             <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)}">
-                                ${item.status}
+                                ${escapeHtml_(item.status || '')}
                             </span>
                             <button onclick="handleShare(event)" class="p-1.5 rounded-md hover:bg-slate-100 text-slate-400 hover:text-blue-600 transition-colors" title="Share / Suggestion">
                                 <i data-lucide="share-2" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>
+
                     <div class="flex-grow">
-                        <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-tight">${item.name}</h3>
-                        <p class="text-sm text-slate-500 line-clamp-2 mb-4">${item.description}</p>
+                        <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-tight">
+                            ${escapeHtml_(item.name || '')}
+                        </h3>
+                        <p class="text-sm text-slate-500 line-clamp-2 mb-4">
+                            ${escapeHtml_(item.description || '')}
+                        </p>
                     </div>
+
                     <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
-                        <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">${item.category}</span>
+                        <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                            ${escapeHtml_(item.category || '')}
+                        </span>
                         <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors"></i>
                     </div>
                 </a>
@@ -368,25 +440,34 @@
 
         function renderList(data) {
             listTbody.innerHTML = data.map(item => `
-                <tr onclick="window.open('${item.url}', '_blank')" class="hover:bg-blue-50 transition-colors cursor-pointer group">
+                <tr onclick="window.open('${escapeHtml_(item.url || '#')}', '_blank')"
+                    class="hover:bg-blue-50 transition-colors cursor-pointer group">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-4">
                             ${getPlatformIconHTML(item.type)}
                             <div>
-                                <div class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">${item.name}</div>
-                                <div class="text-xs text-slate-400 line-clamp-1 max-w-md">${item.description}</div>
+                                <div class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                    ${escapeHtml_(item.name || '')}
+                                </div>
+                                <div class="text-xs text-slate-400 line-clamp-1 max-w-md">
+                                    ${escapeHtml_(item.description || '')}
+                                </div>
                             </div>
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">${item.category}</span>
+                        <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                            ${escapeHtml_(item.category || '')}
+                        </span>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="text-sm text-slate-600">${item.type}</span>
+                        <span class="text-sm text-slate-600">${escapeHtml_(item.type || '')}</span>
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-3">
-                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)}">${item.status}</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)}">
+                                ${escapeHtml_(item.status || '')}
+                            </span>
                             <button onclick="handleShare(event)" class="p-1.5 rounded-md hover:bg-white text-slate-400 hover:text-blue-600 transition-colors">
                                 <i data-lucide="share-2" class="w-4 h-4"></i>
                             </button>
@@ -397,13 +478,9 @@
             `).join('');
         }
 
-        function getStatusClass(status) {
-            const s = (status || "").toLowerCase();
-            if (s === 'featured') return 'bg-purple-100 text-purple-700';
-            if (s === 'live') return 'bg-emerald-100 text-emerald-700';
-            return 'bg-amber-100 text-amber-700';
-        }
-
+        // =========================
+        // EVENTS
+        // =========================
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase().trim();
             render();
@@ -416,17 +493,28 @@
 
         function setCategory(cat) {
             selectedCategory = cat;
+
             document.querySelectorAll('.category-pill').forEach(btn => {
-                btn.className =
-                    (btn.dataset.category === cat)
-                        ? "category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-blue-600 text-white shadow-md"
-                        : "category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:bg-blue-50";
+                const bcat = btn.dataset.category;
+                if (bcat === cat) {
+                    btn.className = "category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-blue-600 text-white shadow-md";
+                } else {
+                    btn.className = "category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:bg-blue-50";
+                }
             });
+
             render();
         }
 
-        gridBtn.addEventListener('click', () => { viewMode = 'grid'; render(); });
-        listBtn.addEventListener('click', () => { viewMode = 'list'; render(); });
+        gridBtn.addEventListener('click', () => {
+            viewMode = 'grid';
+            render();
+        });
+
+        listBtn.addEventListener('click', () => {
+            viewMode = 'list';
+            render();
+        });
 
         function handleShare(e) {
             e.preventDefault();
@@ -443,7 +531,15 @@
             setCategory("Featured");
         }
 
-        window.onload = fetchData;
+        // =========================
+        // INIT
+        // =========================
+        window.onload = () => {
+            fetchData();
+            if (AUTO_REFRESH_MS && AUTO_REFRESH_MS > 0) {
+                setInterval(fetchData, AUTO_REFRESH_MS);
+            }
+        };
     </script>
 </body>
 </html>
