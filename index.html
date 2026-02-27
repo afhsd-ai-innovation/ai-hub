@@ -84,7 +84,7 @@
 
             <div class="flex flex-wrap gap-2 items-center">
                 <span class="text-sm font-semibold text-slate-500 mr-2 flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Categories:
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters:
                 </span>
                 <div id="category-filters" class="flex flex-wrap gap-2">
                     </div>
@@ -180,17 +180,31 @@
         function updateFiltersUI() {
             // Category Filters (Pills)
             const baseCategories = [...new Set(assistants.map(a => a.category))].filter(c => c !== "").sort();
-            const uniqueCategories = ["All", ...baseCategories];
+            // Added "Featured" and "New" right after "All"
+            const uniqueCategories = ["All", "Featured", "New", ...baseCategories];
 
-            categoryFilters.innerHTML = uniqueCategories.map(cat => `
-                <button 
-                    onclick="setCategory('${cat.replace(/'/g, "\\'")}')"
-                    class="category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all ${selectedCategory === cat ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:bg-blue-50'}"
-                    data-category="${cat}"
-                >
-                    ${cat}
-                </button>
-            `).join('');
+            categoryFilters.innerHTML = uniqueCategories.map(cat => {
+                let pillClasses = "";
+                
+                if (selectedCategory === cat) {
+                    pillClasses = "bg-blue-600 text-white shadow-md";
+                } else if (cat === "Featured" || cat === "New") {
+                    // Lighter blue styling for the standout filters
+                    pillClasses = "bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-200 hover:border-blue-300";
+                } else {
+                    pillClasses = "bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:bg-blue-50";
+                }
+
+                return `
+                    <button 
+                        onclick="setCategory('${cat.replace(/'/g, "\\'")}')"
+                        class="category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all ${pillClasses}"
+                        data-category="${cat}"
+                    >
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
 
             // Department Filter (Dropdown)
             const baseDepartments = [...new Set(assistants.map(a => a.department || "General"))].filter(d => d !== "").sort();
@@ -251,12 +265,24 @@
             const filtered = assistants.filter(item => {
                 const name = (item.name || "").toLowerCase();
                 const desc = (item.description || "").toLowerCase();
+                const status = (item.status || "").toLowerCase();
 
                 const matchesSearch = searchQuery === "" || 
                     name.includes(searchQuery) || 
                     desc.includes(searchQuery);
 
-                const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
+                // Surgical update to the category filtering logic
+                let matchesCategory = false;
+                if (selectedCategory === "All") {
+                    matchesCategory = true;
+                } else if (selectedCategory === "Featured") {
+                    matchesCategory = status.includes("featured");
+                } else if (selectedCategory === "New") {
+                    matchesCategory = status.includes("new");
+                } else {
+                    matchesCategory = item.category === selectedCategory;
+                }
+
                 const matchesDepartment = selectedDepartment === "All" || (item.department || "General") === selectedDepartment;
                 return matchesSearch && matchesCategory && matchesDepartment;
             }).sort((a, b) => {
