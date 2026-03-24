@@ -6,6 +6,28 @@
     <title>District AI Prompt Library</title>
     <link rel="icon" href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f2ff',
+                            100: '#dfe4ff',
+                            200: '#cdd2ff',
+                            300: '#aab2ff',
+                            400: '#7d88ff',
+                            500: '#5461ff',
+                            600: '#4154d6',
+                            700: '#3544b1',
+                            800: '#2c368d',
+                            900: '#262f74',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -40,12 +62,12 @@
                 </p>
             </div>
             <div class="flex flex-col gap-2 min-w-fit">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSczhNzVJWt8nW5QvStTXg-Dvbob2dwhu7ecUiOBDxrLvhW2Ew/viewform?usp=header" target="_blank" class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-red-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSczhNzVJWt8nW5QvStTXg-Dvbob2dwhu7ecUiOBDxrLvhW2Ew/viewform?usp=header" target="_blank" class="inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-brand-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     Submit a prompt
                 </a>
                 <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-600"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-brand-600"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     View AI Assistant Library
                 </a>
             </div>
@@ -59,20 +81,20 @@
                         id="search-input"
                         type="text"
                         placeholder="Search by name or description..."
-                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition-all h-[48px]"
+                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all h-[48px]"
                     />
                 </div>
                 
                 <div class="flex items-center gap-3 w-full md:w-auto">
                     <select
                         id="department-filter"
-                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]"
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]"
                     >
                         <option value="All">All Departments</option>
                     </select>
 
                     <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-sm shrink-0 bg-white h-[48px]">
-                        <button id="grid-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none bg-red-600 text-white">
+                        <button id="grid-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none bg-brand-600 text-white">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                         </button>
                         <button id="list-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600">
@@ -94,11 +116,11 @@
         <div class="mb-4 text-sm text-slate-500 flex justify-between items-center font-medium">
             <span id="results-count">Loading prompts…</span>
             <div class="flex items-center gap-2">
-                <a href="https://docs.google.com/spreadsheets/d/1H_US0fDJE4UdjDoD3NrCc11ZFNOiBTMLcUPcnXayihg/edit?gid=0#gid=0" target="_blank" title="View Source Sheet" class="hover:text-red-600 transition-colors flex items-center">
+                <a href="https://docs.google.com/spreadsheets/d/1K89H4P91uVD76dDBzadixVh2eeMzBCzgmHvZR6AK_FY/edit?gid=0#gid=0" target="_blank" title="View Source Sheet" class="hover:text-brand-600 transition-colors flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 </a>
-                <button onclick="loadPromptsJSONP()" title="Refresh data" class="hover:text-red-600 transition-colors flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                <button onclick="loadPromptsJSONP()" title="Refresh data" class="hover:text-brand-600 transition-colors flex items-center">
+                    <svg id="refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
                 </button>
                 <span id="last-updated"></span>
             </div>
@@ -128,7 +150,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 text-slate-300 mx-auto mb-4"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <h3 class="text-xl font-bold text-slate-900">No matches found</h3>
             <p id="no-results-msg" class="text-slate-500 mt-2">Try adjusting your search or category filters.</p>
-            <button onclick="resetFilters()" class="mt-6 bg-red-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-red-700 transition-colors shadow-lg shadow-red-200">
+            <button onclick="resetFilters()" class="mt-6 bg-brand-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-brand-700 transition-colors shadow-lg shadow-brand-200">
                 Reset Filters
             </button>
         </div>
@@ -187,12 +209,12 @@
                 let pillClasses = "";
                 
                 if (selectedCategory === cat) {
-                    pillClasses = "bg-red-600 text-white shadow-md";
+                    pillClasses = "bg-brand-600 text-white shadow-md";
                 } else if (cat === "Featured" || cat === "New") {
                     // Lighter red styling for the standout filters
-                    pillClasses = "bg-red-100 text-red-700 border border-red-200 hover:bg-red-200 hover:border-red-300";
+                    pillClasses = "bg-brand-100 text-brand-700 border border-brand-200 hover:bg-brand-200 hover:border-brand-300";
                 } else {
-                    pillClasses = "bg-white text-slate-600 border border-slate-200 hover:border-red-300 hover:bg-red-50";
+                    pillClasses = "bg-white text-slate-600 border border-slate-200 hover:border-brand-300 hover:bg-brand-50";
                 }
 
                 return `
@@ -332,20 +354,20 @@
                 const bookmarkIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>`;
 
                 const commonButtons = `
-                    <button onclick="handleFeedback(event)" title="Help improve this prompt: Provide feedback or request a change." class="p-1.5 rounded-md hover:bg-red-50 text-red-600 transition-colors">
+                    <button onclick="handleFeedback(event)" title="Help improve this prompt: Provide feedback or request a change." class="p-1.5 rounded-md hover:bg-brand-50 text-brand-600 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </button>
-                    <button onclick="handleBookmarkByIndex(event, ${idx})" title="Bookmark this prompt" class="p-1.5 rounded-md hover:bg-red-50 text-red-600 transition-colors">
+                    <button onclick="handleBookmarkByIndex(event, ${idx})" title="Bookmark this prompt" class="p-1.5 rounded-md hover:bg-brand-50 text-brand-600 transition-colors">
                         ${bookmarkIconSVG}
                     </button>
                 `;
 
                 if (isSpecial) {
                     const badgeText = isNew ? "New" : "Featured";
-                    const badgeColor = isNew ? "bg-red-600" : "bg-red-600";
-                    const borderColor = isNew ? "border-red-200" : "border-red-200";
-                    const shadowColor = isNew ? "hover:shadow-red-50" : "hover:shadow-red-50";
-                    const hoverBorder = isNew ? "hover:border-red-300" : "hover:border-red-300";
+                    const badgeColor = isNew ? "bg-brand-600" : "bg-brand-600";
+                    const borderColor = isNew ? "border-brand-200" : "border-brand-200";
+                    const shadowColor = isNew ? "hover:shadow-brand-50" : "hover:shadow-brand-50";
+                    const hoverBorder = isNew ? "hover:border-brand-300" : "hover:border-brand-300";
 
                     return `
                         <div onclick="showPromptModal(${idx})" class="cursor-pointer group bg-white rounded-3xl border ${borderColor} p-6 ${hoverBorder} hover:shadow-xl ${shadowColor} transition-all duration-300 flex flex-col h-full relative overflow-hidden">
@@ -356,12 +378,12 @@
                                 </div>
                             </div>
                             <div class="flex-grow">
-                                <h3 class="text-xl font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
+                                <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
                                 <p class="text-slate-500 text-sm leading-relaxed line-clamp-2 mb-4">${item.description || ""}</p>
                             </div>
                             <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                                 <div class="flex flex-wrap gap-1.5">
-                                    <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded">${item.department || 'General'}</span>
+                                    <span class="text-xs font-medium text-brand-600 bg-brand-50 px-2 py-1 rounded">${item.department || 'General'}</span>
                                     <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">${item.category || ""}</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
@@ -373,7 +395,7 @@
                 }
 
                 return `
-                    <div onclick="showPromptModal(${idx})" class="cursor-pointer bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-red-400 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col h-full relative">
+                    <div onclick="showPromptModal(${idx})" class="cursor-pointer bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-brand-400 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col h-full relative">
                         <div class="flex items-start justify-between mb-4">
                             ${getPlatformIconHTML(item.type)}
                             <div class="flex items-center gap-1.5">
@@ -381,12 +403,12 @@
                             </div>
                         </div>
                         <div class="flex-grow">
-                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
+                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-brand-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
                             <p class="text-sm text-slate-500 line-clamp-2 mb-4">${item.description || ""}</p>
                         </div>
                         <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                             <div class="flex flex-wrap gap-1.5">
-                                <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded">${item.department || 'General'}</span>
+                                <span class="text-xs font-medium text-brand-600 bg-brand-50 px-2 py-1 rounded">${item.department || 'General'}</span>
                                 <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">${item.category || ""}</span>
                             </div>
                             <div class="flex items-center gap-1.5">
@@ -402,18 +424,18 @@
             currentFilteredData = data;
             listTbody.innerHTML = data.map((item, idx) => {
                 return `
-                <tr onclick="showPromptModal(${idx})" class="hover:bg-red-50 transition-colors cursor-pointer group">
+                <tr onclick="showPromptModal(${idx})" class="hover:bg-brand-50 transition-colors cursor-pointer group">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-4">
                             ${getPlatformIconHTML(item.type)}
                             <div>
-                                <div class="font-bold text-slate-900 group-hover:text-red-600 transition-colors">${item.name || ""}</div>
+                                <div class="font-bold text-slate-900 group-hover:text-brand-600 transition-colors">${item.name || ""}</div>
                                 <div class="text-xs text-slate-400 line-clamp-1 max-w-md">${item.description || ""}</div>
                             </div>
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded">${item.department || 'General'}</span>
+                        <span class="text-xs font-medium text-brand-600 bg-brand-50 px-2 py-1 rounded">${item.department || 'General'}</span>
                     </td>
                     <td class="px-6 py-4">
                         <span class="text-sm text-slate-600">${item.type || ""}</span>
@@ -421,7 +443,7 @@
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-1.5">
                             <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)} mr-1">${item.status || ""}</span>
-                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-red-500 transition-colors ml-1"></i>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-brand-500 transition-colors ml-1"></i>
                         </div>
                     </td>
                 </tr>
@@ -447,7 +469,7 @@
                     <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                         <h3 class="font-extrabold text-xl text-slate-900 pr-4">${name}</h3>
                         <div class="flex items-center gap-2 shrink-0">
-                            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-sm font-semibold transition-colors" title="Copy prompt to clipboard">
+                            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-600 text-sm font-semibold transition-colors" title="Copy prompt to clipboard">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 Copy
                             </button>
@@ -458,7 +480,7 @@
                     </div>
                     <div class="p-8 max-h-[60vh] overflow-y-auto text-slate-600 leading-relaxed text-[15px]">${htmlContent}</div>
                     <div class="p-6 bg-slate-50/50 border-t border-slate-100 flex justify-end">
-                        <button class="close-modal px-6 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-200">Close</button>
+                        <button class="close-modal px-6 py-2.5 bg-brand-600 text-white rounded-xl font-bold hover:bg-brand-700 transition-colors shadow-lg shadow-brand-200">Close</button>
                     </div>
                 </div>
             `;
@@ -475,7 +497,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         Copied!
                     `;
-                    copyBtn.classList.remove('bg-red-50', 'hover:bg-red-100', 'text-red-600');
+                    copyBtn.classList.remove('bg-brand-50', 'hover:bg-brand-100', 'text-brand-600');
                     copyBtn.classList.add('bg-emerald-50', 'text-emerald-600');
                     setTimeout(() => {
                         copyBtn.innerHTML = `
@@ -483,7 +505,7 @@
                             Copy
                         `;
                         copyBtn.classList.remove('bg-emerald-50', 'text-emerald-600');
-                        copyBtn.classList.add('bg-red-50', 'hover:bg-red-100', 'text-red-600');
+                        copyBtn.classList.add('bg-brand-50', 'hover:bg-brand-100', 'text-brand-600');
                     }, 2000);
                 } catch (err) {
                     console.error('Copy failed:', err);
@@ -518,7 +540,7 @@
             const s = (status || "").toLowerCase();
             if (s.includes('featured')) return 'bg-purple-100 text-purple-700';
             if (s.includes('live')) return 'bg-emerald-100 text-emerald-700';
-            if (s.includes('new')) return 'bg-red-100 text-red-700';
+            if (s.includes('new')) return 'bg-brand-100 text-brand-700';
             return 'bg-amber-100 text-amber-700';
         }
 
@@ -542,7 +564,7 @@
 
         gridBtn.addEventListener('click', () => {
             viewMode = 'grid';
-            gridBtn.className = "w-12 h-full flex items-center justify-center transition-all outline-none bg-red-600 text-white";
+            gridBtn.className = "w-12 h-full flex items-center justify-center transition-all outline-none bg-brand-600 text-white";
             listBtn.className = "w-12 h-full flex items-center justify-center transition-all outline-none bg-white text-slate-400 hover:text-slate-600";
             render();
         });
@@ -550,7 +572,7 @@
         listBtn.addEventListener('click', () => {
             viewMode = 'list';
             gridBtn.className = "w-12 h-full flex items-center justify-center transition-all outline-none bg-white text-slate-400 hover:text-slate-600";
-            listBtn.className = "w-12 h-full flex items-center justify-center transition-all outline-none bg-red-600 text-white";
+            listBtn.className = "w-12 h-full flex items-center justify-center transition-all outline-none bg-brand-600 text-white";
             render();
         });
 
@@ -576,7 +598,7 @@
                     </div>
                     <div class="p-8 max-h-[60vh] overflow-y-auto text-slate-600 leading-relaxed text-lg">${instructions}</div>
                     <div class="p-6 bg-slate-50/50 border-t border-slate-100 flex justify-end">
-                        <button class="close-modal px-6 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-200">Got it</button>
+                        <button class="close-modal px-6 py-2.5 bg-brand-600 text-white rounded-xl font-bold hover:bg-brand-700 transition-colors shadow-lg shadow-brand-200">Got it</button>
                     </div>
                 </div>
             `;
@@ -630,6 +652,8 @@
         // ==========================================
         function loadPromptsJSONP() {
             resultsCount.textContent = "Loading prompts…";
+            const refreshIcon = document.getElementById('refresh-icon');
+            if (refreshIcon) refreshIcon.classList.add('animate-spin');
 
             const cbName = "jsonp_cb_" + Math.random().toString(36).slice(2);
             const script = document.createElement("script");
@@ -637,6 +661,7 @@
             const cleanup = () => {
                 try { delete window[cbName]; } catch {}
                 try { script.remove(); } catch {}
+                if (refreshIcon) refreshIcon.classList.remove('animate-spin');
             };
 
             window[cbName] = (payload) => {
