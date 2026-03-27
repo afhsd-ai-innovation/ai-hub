@@ -318,8 +318,12 @@
             safeRefreshIcons();
         }
 
+        // Store current filtered data globally so we can reference by index
+        let currentFilteredData = [];
+
         function renderGrid(data) {
-            gridContainer.innerHTML = data.map(item => {
+            currentFilteredData = data;
+            gridContainer.innerHTML = data.map((item, idx) => {
                 const statusLower = (item.status || "").toLowerCase();
                 const isFeatured = statusLower.includes('featured');
                 const isNew = statusLower.includes('new');
@@ -328,14 +332,14 @@
                 const safeInstructions = (item.instructions || "").replace(/'/g, "\\'").replace(/\n/g, "<br>");
                 
                 // SVG Icons - Solid Theme
-                const infoIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+                const infoIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"></line><line x1="12" y1="8" x2="12.01" y2="8" stroke="white" stroke-width="2" stroke-linecap="round"></line></svg>`;
                 const bookmarkIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>`;
 
                 const commonButtons = `
                     <button onclick="handleFeedback(event)" title="Help improve this assistant: Provide feedback or request a change." class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </button>
-                    ${item.instructions ? `<button onclick="handleInfo(event, '${safeName}', '${safeInstructions}')" title="View instructions" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${infoIconSVG}</button>` : ''}
+                    ${item.instructions ? `<button onclick="showInstructionsModal(event, ${idx})" title="See How This Assistant Works" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${infoIconSVG}</button>` : ''}
                     <button onclick="handleBookmark(event, '${safeName}', '${item.url || ""}')" title="Bookmark this assistant" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">
                         ${bookmarkIconSVG}
                     </button>
@@ -402,10 +406,11 @@
         }
 
         function renderList(data) {
-            const infoIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+            currentFilteredData = data;
+            const infoIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"></line><line x1="12" y1="8" x2="12.01" y2="8" stroke="white" stroke-width="2" stroke-linecap="round"></line></svg>`;
             const bookmarkIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>`;
             
-            listTbody.innerHTML = data.map(item => {
+            listTbody.innerHTML = data.map((item, idx) => {
                 const safeName = (item.name || "").replace(/'/g, "\\'");
                 const safeInstructions = (item.instructions || "").replace(/'/g, "\\'").replace(/\n/g, "<br>");
                 return `
@@ -431,7 +436,7 @@
                             <button onclick="handleFeedback(event)" title="Help improve this assistant: Provide feedback or request a change." class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                             </button>
-                            ${item.instructions ? `<button onclick="handleInfo(event, '${safeName}', '${safeInstructions}')" title="View instructions" class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">${infoIconSVG}</button>` : ''}
+                            ${item.instructions ? `<button onclick="showInstructionsModal(event, ${idx})" title="See How This Assistant Works" class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">${infoIconSVG}</button>` : ''}
                             <button onclick="handleBookmark(event, '${safeName}', '${item.url || ""}')" title="Bookmark this assistant" class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">
                                 ${bookmarkIconSVG}
                             </button>
@@ -482,34 +487,87 @@
             render();
         });
 
+
         function handleFeedback(event) {
             event.preventDefault();
             event.stopPropagation();
             window.open(FEEDBACK_URL, '_blank');
         }
 
-        function handleInfo(event, name, instructions) {
+        // ==========================================
+        // Instructions Modal with Copy Button (info icon)
+        // ==========================================
+        function showInstructionsModal(event, idx) {
             event.preventDefault();
             event.stopPropagation();
+            const item = currentFilteredData[idx];
+            if (!item) return;
+
+            const name = item.name || "Untitled Assistant";
+            const rawContent = item.instructions || "No instructions available.";
+            const htmlContent = rawContent.replace(/\n/g, "<br>");
+
             const overlay = document.createElement('div');
             overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 transition-opacity duration-300';
             overlay.style.opacity = '0';
             overlay.innerHTML = `
-                <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+                <div class="bg-white rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
                     <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                        <h3 class="font-extrabold text-xl text-slate-900">How to use ${name}</h3>
-                        <button class="close-modal p-2 rounded-full hover:bg-slate-200 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        </button>
+                        <h3 class="font-extrabold text-xl text-slate-900 pr-4">${name}</h3>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button class="copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 text-sm font-semibold transition-colors" title="Copy instructions to clipboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                Copy
+                            </button>
+                            <button class="close-modal p-2 rounded-full hover:bg-slate-200 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="p-8 max-h-[60vh] overflow-y-auto text-slate-600 leading-relaxed text-lg">${instructions}</div>
+                    <div class="p-8 max-h-[60vh] overflow-y-auto">
+                        <div class="bg-blue-50 text-blue-800 p-4 rounded-xl mb-6 text-sm border border-blue-100">
+                            <h4 class="font-bold text-blue-900 mb-1">How This Assistant Works</h4>
+                            <p class="mb-2">The content below outlines the system instructions used to guide this AI assistant’s behavior.</p>
+                            <p>Reviewing these instructions can help you understand how the assistant was built—and you can copy and adapt them to create your own.</p>
+                        </div>
+                        <div class="text-slate-600 leading-relaxed text-[15px]">
+                            ${htmlContent}
+                        </div>
+                    </div>
                     <div class="p-6 bg-slate-50/50 border-t border-slate-100 flex justify-end">
-                        <button class="close-modal px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">Got it</button>
+                        <button class="close-modal px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">Close</button>
                     </div>
                 </div>
             `;
             document.body.appendChild(overlay);
+
             const modal = overlay.querySelector('div');
+
+            // Copy button handler
+            overlay.querySelector('.copy-btn').addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(rawContent);
+                    const copyBtn = overlay.querySelector('.copy-btn');
+                    copyBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Copied!
+                    `;
+                    copyBtn.classList.remove('bg-blue-50', 'hover:bg-blue-100', 'text-blue-600');
+                    copyBtn.classList.add('bg-emerald-50', 'text-emerald-600');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copy
+                        `;
+                        copyBtn.classList.remove('bg-emerald-50', 'text-emerald-600');
+                        copyBtn.classList.add('bg-blue-50', 'hover:bg-blue-100', 'text-blue-600');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Copy failed:', err);
+                }
+            });
+
+            // Close handlers
             const closeModal = () => {
                 overlay.style.opacity = '0';
                 modal.className = modal.className.replace('scale-100', 'scale-95');
@@ -517,6 +575,8 @@
             };
             overlay.addEventListener('click', closeModal);
             overlay.querySelectorAll('.close-modal').forEach(b => b.addEventListener('click', closeModal));
+
+            // Animate in
             setTimeout(() => {
                 overlay.style.opacity = '1';
                 modal.className = modal.className.replace('scale-95', 'scale-100');
