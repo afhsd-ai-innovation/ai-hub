@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>District AI Prompt Library</title>
-    <link rel="icon" href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
+    <link rel="icon"
+        href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .line-clamp-1 {
             display: -webkit-box;
             -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
+
 <body class="bg-slate-50 text-slate-900 min-h-screen">
 
     <div id="app" class="max-w-6xl mx-auto p-4 md:p-8">
@@ -35,17 +50,32 @@
                     District AI Prompt Library
                 </h1>
                 <p class="mt-2 text-slate-600 max-w-2xl">
-                    Browse, share, and access AI prompts developed for and by District staff. 
+                    Browse, share, and access AI prompts developed for and by District staff.
                     Click any card to view the prompt.
                 </p>
             </div>
             <div class="flex flex-col gap-2 min-w-fit">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSczhNzVJWt8nW5QvStTXg-Dvbob2dwhu7ecUiOBDxrLvhW2Ew/viewform?usp=header" target="_blank" class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-red-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSczhNzVJWt8nW5QvStTXg-Dvbob2dwhu7ecUiOBDxrLvhW2Ew/viewform?usp=header"
+                    target="_blank"
+                    class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-red-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
                     Submit a prompt
                 </a>
-                <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-600"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <a href="index.html"
+                    class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-red-600">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
                     View AI Assistant Library
                 </a>
             </div>
@@ -54,29 +84,45 @@
         <div class="space-y-6 mb-8">
             <div class="flex flex-col md:flex-row gap-4 items-stretch">
                 <div class="relative flex-grow w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input
-                        id="search-input"
-                        type="text"
-                        placeholder="Search by name or description..."
-                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition-all h-[48px]"
-                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input id="search-input" type="text" placeholder="Search by name or description..."
+                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition-all h-[48px]" />
                 </div>
-                
+
                 <div class="flex items-center gap-3 w-full md:w-auto">
-                    <select
-                        id="department-filter"
-                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]"
-                    >
+                    <select id="department-filter"
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]">
                         <option value="All">All Departments</option>
                     </select>
 
-                    <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-sm shrink-0 bg-white h-[48px]">
-                        <button id="grid-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none bg-red-600 text-white">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <div
+                        class="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-sm shrink-0 bg-white h-[48px]">
+                        <button id="grid-view-btn"
+                            class="w-12 h-full flex items-center justify-center transition-all outline-none bg-red-600 text-white">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
                         </button>
-                        <button id="list-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="3" cy="6" r="1" fill="currentColor"></circle><circle cx="3" cy="12" r="1" fill="currentColor"></circle><circle cx="3" cy="18" r="1" fill="currentColor"></circle></svg>
+                        <button id="list-view-btn"
+                            class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <circle cx="3" cy="6" r="1" fill="currentColor"></circle>
+                                <circle cx="3" cy="12" r="1" fill="currentColor"></circle>
+                                <circle cx="3" cy="18" r="1" fill="currentColor"></circle>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -84,51 +130,82 @@
 
             <div class="flex flex-wrap gap-2 items-center">
                 <span class="text-sm font-semibold text-slate-500 mr-2 flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters:
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg> Filters:
                 </span>
                 <div id="category-filters" class="flex flex-wrap gap-2">
-                    </div>
+                </div>
             </div>
         </div>
 
         <div class="mb-4 text-sm text-slate-500 flex justify-between items-center font-medium">
             <span id="results-count">Loading prompts…</span>
             <div class="flex items-center gap-2">
-                <a href="https://docs.google.com/spreadsheets/d/1H_US0fDJE4UdjDoD3NrCc11ZFNOiBTMLcUPcnXayihg/edit?gid=0#gid=0" target="_blank" title="View Source Sheet" class="hover:text-red-600 transition-colors flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <a href="https://docs.google.com/spreadsheets/d/1H_US0fDJE4UdjDoD3NrCc11ZFNOiBTMLcUPcnXayihg/edit?gid=0#gid=0"
+                    target="_blank" title="View Source Sheet"
+                    class="hover:text-red-600 transition-colors flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
                 </a>
-                <button onclick="loadPromptsJSONP()" title="Refresh data" class="hover:text-red-600 transition-colors flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                <button onclick="loadPromptsJSONP()" title="Refresh data"
+                    class="hover:text-red-600 transition-colors flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                        <path d="M21 3v5h-5"></path>
+                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                        <path d="M8 16H3v5"></path>
+                    </svg>
                 </button>
                 <span id="last-updated"></span>
             </div>
         </div>
 
         <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
+        </div>
 
         <div id="list-container" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead class="bg-slate-50 border-b border-slate-200">
                         <tr>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Prompt</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Department</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Platform</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Status</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Prompt
+                            </th>
+                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                Department</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Platform
+                            </th>
+                            <th
+                                class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">
+                                Status</th>
                         </tr>
                     </thead>
                     <tbody id="list-tbody" class="divide-y divide-slate-100">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <div id="no-results" class="hidden text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-200 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 text-slate-300 mx-auto mb-4"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <div id="no-results"
+            class="hidden text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-200 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="w-12 h-12 text-slate-300 mx-auto mb-4">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
             <h3 class="text-xl font-bold text-slate-900">No matches found</h3>
             <p id="no-results-msg" class="text-slate-500 mt-2">Try adjusting your search or category filters.</p>
-            <button onclick="resetFilters()" class="mt-6 bg-red-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-red-700 transition-colors shadow-lg shadow-red-200">
+            <button onclick="resetFilters()"
+                class="mt-6 bg-gradient-to-br from-red-500 to-red-700 text-white px-6 py-2 rounded-xl font-semibold hover:from-red-400 hover:to-red-600 transition-all border border-red-400/20">
                 Reset Filters
             </button>
         </div>
@@ -149,10 +226,10 @@
         // ==========================================
 
         const FEEDBACK_URL = "https://docs.google.com/forms/d/1UNjmdkA__3SQD0JGz_JPVRJYlc2CVPxMGXFazaC-gfE/viewform?edit_requested=true";
-        
+
         // State
         let searchQuery = "";
-        let selectedCategory = "All"; 
+        let selectedCategory = "All";
         let selectedDepartment = "All";
         let viewMode = "grid";
 
@@ -185,7 +262,7 @@
 
             categoryFilters.innerHTML = uniqueCategories.map(cat => {
                 let pillClasses = "";
-                
+
                 if (selectedCategory === cat) {
                     pillClasses = "bg-red-600 text-white shadow-md";
                 } else if (cat === "Featured" || cat === "New") {
@@ -208,7 +285,7 @@
 
             // Department Filter (Dropdown)
             const baseDepartments = [...new Set(prompts.map(a => a.department || "General"))].filter(d => d !== "").sort();
-            departmentFilter.innerHTML = `<option value="All" ${selectedDepartment === 'All' ? 'selected' : ''}>All Departments</option>` + 
+            departmentFilter.innerHTML = `<option value="All" ${selectedDepartment === 'All' ? 'selected' : ''}>All Departments</option>` +
                 baseDepartments.map(dept => `
                 <option value="${dept}" ${selectedDepartment === dept ? 'selected' : ''}>${dept}</option>
             `).join('');
@@ -217,7 +294,7 @@
         function getPlatformIconHTML(type) {
             const normalized = (type || "").toLowerCase();
             const iconClass = "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-slate-100 bg-white";
-            
+
             if (normalized.includes("gpt")) {
                 return `<div class="${iconClass}">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" class="w-full h-full object-cover" alt="ChatGPT">
@@ -237,13 +314,13 @@
         function applyHashFilter() {
             const hash = window.location.hash.substring(1).trim();
             const dropdown = document.getElementById('department-filter');
-            
+
             if (hash) {
                 const decodedHash = decodeURIComponent(hash).toLowerCase();
-                
+
                 // Find matching option case-insensitively
                 const matchingOption = Array.from(dropdown.options).find(opt => opt.value.toLowerCase() === decodedHash);
-                
+
                 if (matchingOption) {
                     selectedDepartment = matchingOption.value;
                     dropdown.value = matchingOption.value;
@@ -267,8 +344,8 @@
                 const desc = (item.description || "").toLowerCase();
                 const status = (item.status || "").toLowerCase();
 
-                const matchesSearch = searchQuery === "" || 
-                    name.includes(searchQuery) || 
+                const matchesSearch = searchQuery === "" ||
+                    name.includes(searchQuery) ||
                     desc.includes(searchQuery);
 
                 // Surgical update to the category filtering logic
@@ -297,7 +374,7 @@
             });
 
             resultsCount.textContent = `Found ${filtered.length} prompt${filtered.length !== 1 ? 's' : ''}`;
-            
+
             if (filtered.length === 0) {
                 noResults.classList.remove('hidden');
                 gridContainer.classList.add('hidden');
@@ -635,8 +712,8 @@
             const script = document.createElement("script");
 
             const cleanup = () => {
-                try { delete window[cbName]; } catch {}
-                try { script.remove(); } catch {}
+                try { delete window[cbName]; } catch { }
+                try { script.remove(); } catch { }
             };
 
             window[cbName] = (payload) => {
@@ -703,4 +780,5 @@
         safeRefreshIcons();
     </script>
 </body>
+
 </html>

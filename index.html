@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Version: 1.0.6 - Cache Buster -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>District AI Assistant Library</title>
-    <link rel="icon" href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
+    <link rel="icon"
+        href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .font-mono { font-family: 'Fira Code', monospace; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'Fira Code', monospace;
+        }
+
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
             line-clamp: 2;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .line-clamp-1 {
             display: -webkit-box;
             -webkit-line-clamp: 1;
             line-clamp: 1;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
+
 <body class="bg-slate-50 text-slate-900 min-h-screen">
 
     <div id="app" class="max-w-6xl mx-auto p-4 md:p-8">
@@ -39,17 +57,31 @@
                     District AI Assistant Library
                 </h1>
                 <p class="mt-2 text-slate-600 max-w-2xl">
-                    Browse, share, and access specialized AI tools developed for and by District staff. 
+                    Browse, share, and access specialized AI tools developed for and by District staff.
                     Click any card to launch the assistant.
                 </p>
             </div>
             <div class="flex flex-col gap-2 min-w-fit">
-                <a href="guide.html" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <a href="guide.html"
+                    class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
                     Create my own AI assistant
                 </a>
-                <a href="prompts.html" class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-600"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <a href="prompts.html"
+                    class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-blue-600">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
                     View AI Prompt Library
                 </a>
             </div>
@@ -58,29 +90,45 @@
         <div class="space-y-6 mb-8">
             <div class="flex flex-col md:flex-row gap-4 items-stretch">
                 <div class="relative flex-grow w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input
-                        id="search-input"
-                        type="text"
-                        placeholder="Search by name or description..."
-                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all h-[48px]"
-                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input id="search-input" type="text" placeholder="Search by name or description..."
+                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all h-[48px]" />
                 </div>
-                
+
                 <div class="flex items-center gap-3 w-full md:w-auto">
-                    <select
-                        id="department-filter"
-                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]"
-                    >
+                    <select id="department-filter"
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]">
                         <option value="All">All Departments</option>
                     </select>
 
-                    <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-sm shrink-0 bg-white h-[48px]">
-                        <button id="grid-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none bg-blue-600 text-white">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <div
+                        class="flex items-center border border-slate-200 rounded-xl overflow-hidden shadow-sm shrink-0 bg-white h-[48px]">
+                        <button id="grid-view-btn"
+                            class="w-12 h-full flex items-center justify-center transition-all outline-none bg-blue-600 text-white">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
                         </button>
-                        <button id="list-view-btn" class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="3" cy="6" r="1" fill="currentColor"></circle><circle cx="3" cy="12" r="1" fill="currentColor"></circle><circle cx="3" cy="18" r="1" fill="currentColor"></circle></svg>
+                        <button id="list-view-btn"
+                            class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <circle cx="3" cy="6" r="1" fill="currentColor"></circle>
+                                <circle cx="3" cy="12" r="1" fill="currentColor"></circle>
+                                <circle cx="3" cy="18" r="1" fill="currentColor"></circle>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -88,51 +136,82 @@
 
             <div class="flex flex-wrap gap-2 items-center">
                 <span class="text-sm font-semibold text-slate-500 mr-2 flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Filters:
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg> Filters:
                 </span>
                 <div id="category-filters" class="flex flex-wrap gap-2">
-                    </div>
+                </div>
             </div>
         </div>
 
         <div class="mb-4 text-sm text-slate-500 flex justify-between items-center font-medium">
             <span id="results-count">Loading assistants…</span>
             <div class="flex items-center gap-2">
-                <a href="https://docs.google.com/spreadsheets/d/1zS8qTeu8_Te1Jqf7eCVB5X5_48E6WQ2SUQEX-bLiwkY/edit?gid=1778229618#gid=1778229618" target="_blank" title="View Source Sheet" class="hover:text-blue-600 transition-colors flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <a href="https://docs.google.com/spreadsheets/d/1zS8qTeu8_Te1Jqf7eCVB5X5_48E6WQ2SUQEX-bLiwkY/edit?gid=1778229618#gid=1778229618"
+                    target="_blank" title="View Source Sheet"
+                    class="hover:text-blue-600 transition-colors flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
                 </a>
-                <button onclick="loadAssistantsJSONP()" title="Refresh data" class="hover:text-blue-600 transition-colors flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                <button onclick="loadAssistantsJSONP()" title="Refresh data"
+                    class="hover:text-blue-600 transition-colors flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                        <path d="M21 3v5h-5"></path>
+                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                        <path d="M8 16H3v5"></path>
+                    </svg>
                 </button>
                 <span id="last-updated"></span>
             </div>
         </div>
 
         <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
+        </div>
 
         <div id="list-container" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead class="bg-slate-50 border-b border-slate-200">
                         <tr>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Assistant</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Department</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Platform</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Status</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                Assistant</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                Department</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Platform
+                            </th>
+                            <th
+                                class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">
+                                Status</th>
                         </tr>
                     </thead>
                     <tbody id="list-tbody" class="divide-y divide-slate-100">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <div id="no-results" class="hidden text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-200 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 text-slate-300 mx-auto mb-4"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <div id="no-results"
+            class="hidden text-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-200 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="w-12 h-12 text-slate-300 mx-auto mb-4">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
             <h3 class="text-xl font-bold text-slate-900">No matches found</h3>
             <p id="no-results-msg" class="text-slate-500 mt-2">Try adjusting your search or category filters.</p>
-            <button onclick="resetFilters()" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">
+            <button onclick="resetFilters()"
+                class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">
                 Reset Filters
             </button>
         </div>
@@ -148,15 +227,15 @@
         // ONLY CHANGE: assistants come from Apps Script JSONP now
         // ==========================================
         const DATA_API_URL = "https://script.google.com/macros/s/AKfycbyEUAuOtJfOIz4ejSZiZj75vUatbD9zAct1BzWusblLRlTAozkeHXJEFXnKffqwbHfgQA/exec";
-        const SHEET_TAB_NAME = ""; 
+        const SHEET_TAB_NAME = "";
         let assistants = [];
         // ==========================================
 
         const FEEDBACK_URL = "https://docs.google.com/forms/d/1UNjmdkA__3SQD0JGz_JPVRJYlc2CVPxMGXFazaC-gfE/viewform?edit_requested=true";
-        
+
         // State
         let searchQuery = "";
-        let selectedCategory = "All"; 
+        let selectedCategory = "All";
         let selectedDepartment = "All";
         let viewMode = "grid";
         let currentFilteredData = [];
@@ -211,7 +290,7 @@
                 }).join('');
 
                 const baseDepartments = [...new Set(assistants.map(a => a.department || "General"))].filter(d => d !== "").sort();
-                departmentFilter.innerHTML = `<option value="All" ${selectedDepartment === 'All' ? 'selected' : ''}>All Departments</option>` + 
+                departmentFilter.innerHTML = `<option value="All" ${selectedDepartment === 'All' ? 'selected' : ''}>All Departments</option>` +
                     baseDepartments.map(dept => `<option value="${dept}" ${selectedDepartment === dept ? 'selected' : ''}>${dept}</option>`).join('');
             } catch (e) {
                 console.error("Filter UI update failed:", e);
@@ -220,10 +299,10 @@
 
         function getPlatformIconHTML(type, isGrid = true) {
             const normalized = (type || "").toLowerCase();
-            const iconClass = isGrid 
-                ? "w-4 h-4 rounded-sm flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-slate-100 bg-white" 
+            const iconClass = isGrid
+                ? "w-4 h-4 rounded-sm flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-slate-100 bg-white"
                 : "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm overflow-hidden border border-slate-100 bg-white";
-            
+
             const wrap = (iconHTML, text) => {
                 if (!isGrid) return iconHTML;
                 return `<div class="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
@@ -231,7 +310,7 @@
                     <span>${text}</span>
                 </div>`;
             };
-            
+
             if (normalized.includes("gpt")) {
                 return wrap(`<div class="${iconClass}"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" class="w-full h-full object-cover"></div>`, "Custom GPT");
             } else if (normalized.includes("gemini") || normalized.includes("gem")) {
@@ -288,7 +367,7 @@
                 });
 
                 resultsCount.textContent = `Found ${filtered.length} assistant${filtered.length !== 1 ? 's' : ''}`;
-                
+
                 if (filtered.length === 0) {
                     noResults.classList.remove('hidden');
                     gridContainer.classList.add('hidden');
@@ -317,7 +396,7 @@
                 const statusLower = (item.status || "").toLowerCase();
                 const isSpecial = statusLower.includes('featured') || statusLower.includes('new');
                 const safeName = (item.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-                
+
                 const commonButtons = `
                     <button onclick="handleFeedback(event)" title="Feedback" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${ICONS.feedback}</button>
                     <button onclick="handleBookmark(event, '${safeName}', '${item.url || ""}')" title="Bookmark" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${ICONS.bookmark}</button>
@@ -400,10 +479,10 @@
         }
 
         searchInput.addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase().trim(); render(); });
-        departmentFilter.addEventListener('change', (e) => { 
-            selectedDepartment = e.target.value; 
+        departmentFilter.addEventListener('change', (e) => {
+            selectedDepartment = e.target.value;
             window.location.hash = selectedDepartment === "All" ? "" : selectedDepartment;
-            render(); 
+            render();
         });
 
         function setCategory(cat) { selectedCategory = cat; updateFiltersUI(); render(); }
@@ -416,9 +495,9 @@
             event.preventDefault(); event.stopPropagation();
             const item = currentFilteredData[idx];
             if (!item) return;
-            
+
             const rawContent = item.instructions || "No instructions available.";
-            
+
             const overlay = document.createElement('div');
             overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 transition-opacity duration-300';
             overlay.style.opacity = '0';
@@ -486,40 +565,40 @@
                 </div>
             `;
             document.body.appendChild(overlay);
-            
-            const close = () => { 
-                overlay.style.opacity = '0'; 
+
+            const close = () => {
+                overlay.style.opacity = '0';
                 overlay.children[0].classList.replace('scale-100', 'scale-95');
-                setTimeout(() => overlay.remove(), 300); 
+                setTimeout(() => overlay.remove(), 300);
             };
             overlay.addEventListener('click', close);
             overlay.querySelectorAll('.close-modal').forEach(b => b.addEventListener('click', close));
-            setTimeout(() => { 
-                overlay.style.opacity = '1'; 
-                overlay.children[0].classList.replace('scale-95', 'scale-100'); 
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                overlay.children[0].classList.replace('scale-95', 'scale-100');
             }, 10);
         }
 
         // Global helper for the new modal copy buttons
-        window.copyToClipboard = async function(event, text, element, isPrimary = false) {
+        window.copyToClipboard = async function (event, text, element, isPrimary = false) {
             event.preventDefault(); event.stopPropagation();
             try {
                 await navigator.clipboard.writeText(text);
                 const originalHTML = element.innerHTML;
                 const originalClass = element.className;
-                
+
                 if (isPrimary) {
                     element.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
                     element.classList.replace('bg-blue-600', 'bg-emerald-600');
-                    setTimeout(() => { 
-                        element.innerHTML = originalHTML; 
-                        element.className = originalClass; 
+                    setTimeout(() => {
+                        element.innerHTML = originalHTML;
+                        element.className = originalClass;
                     }, 2000);
                 } else {
                     element.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
                     element.classList.replace('text-blue-600', 'text-emerald-600');
-                    setTimeout(() => { 
-                        element.innerHTML = originalHTML; 
+                    setTimeout(() => {
+                        element.innerHTML = originalHTML;
                         element.classList.replace('text-emerald-600', 'text-blue-600');
                     }, 2000);
                 }
@@ -545,18 +624,18 @@
             resultsCount.textContent = "Loading assistants…";
             const cbName = "jsonp_cb_" + Math.random().toString(36).slice(2);
             const script = document.createElement("script");
-            const cleanup = () => { try { delete window[cbName]; } catch {} script.remove(); };
+            const cleanup = () => { try { delete window[cbName]; } catch { } script.remove(); };
             window[cbName] = (payload) => {
                 try {
                     if (!payload || !payload.ok) throw new Error("API Error");
                     assistants = (payload.assistants || []).map(a => ({
-                        name: a.name || "", 
-                        status: a.status || "", 
+                        name: a.name || "",
+                        status: a.status || "",
                         type: a.type || "",
-                        department: a.department || "General", 
+                        department: a.department || "General",
                         category: a.category || "",
-                        url: a.url || "", 
-                        description: a.description || "", 
+                        url: a.url || "",
+                        description: a.description || "",
                         instructions: a.instructions || ""
                     }));
                     updateFiltersUI(); applyHashFilter();
@@ -576,4 +655,5 @@
         loadAssistantsJSONP();
     </script>
 </body>
+
 </html>
