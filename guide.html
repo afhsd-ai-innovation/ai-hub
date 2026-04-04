@@ -113,6 +113,7 @@
         .gem-theme .gem-gradient-text {
             background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .gem-theme .code-block {
@@ -166,8 +167,14 @@
 <body>
 
     <!-- GENERAL HEADER -->
-    <header class="pt-16 pb-8 px-4 md:px-8 max-w-4xl mx-auto">
-        <h1 class="text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Create an AI Assistant (Custom GPT or Gem)</h1>
+    <header class="pt-16 pb-8 px-4 md:px-8 max-w-4xl mx-auto relative">
+        <div class="absolute top-4 right-4 md:right-8">
+            <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to AI Assistant Library
+            </a>
+        </div>
+        <h1 class="text-4xl font-extrabold text-slate-900 mt-10 mb-6 tracking-tight">Create an AI Assistant (Custom GPT or Gem)</h1>
         <div class="text-lg text-slate-600 leading-relaxed space-y-4">
             <p>
                 On this page, we will walk you through how to create your first <strong>Custom GPT</strong> or <strong>Gemini Gem</strong>. These are personalized AI assistants designed to perform specific tasks using your own documents as a knowledge source.
