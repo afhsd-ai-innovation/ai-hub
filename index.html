@@ -9,17 +9,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'Fira Code', monospace; }
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;  
             overflow: hidden;
         }
         .line-clamp-1 {
             display: -webkit-box;
             -webkit-line-clamp: 1;
+            line-clamp: 1;
             -webkit-box-orient: vertical;  
             overflow: hidden;
         }
@@ -413,73 +416,117 @@
             event.preventDefault(); event.stopPropagation();
             const item = currentFilteredData[idx];
             if (!item) return;
+            
             const rawContent = item.instructions || "No instructions available.";
-            const htmlContent = rawContent.replace(/\n/g, "<br>");
+            
             const overlay = document.createElement('div');
             overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 transition-opacity duration-300';
             overlay.style.opacity = '0';
             overlay.innerHTML = `
-                <div class="bg-white rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
-                    <div class="p-6 border-b border-slate-100 flex justify-between items-start bg-slate-50/50">
-                        <div class="flex-grow">
-                             <div class="flex items-center gap-2 group/name cursor-pointer" onclick="copySmallText(event, '${(item.name || "").replace(/'/g, "\\'")}', this)" title="Click to copy name">
-                                <h3 class="font-extrabold text-xl text-slate-900 pr-0">${item.name}</h3>
-                                <div class="text-blue-600 opacity-40 group-hover/name:opacity-100 transition-opacity p-1 hover:bg-blue-50 rounded-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                                </div>
-                             </div>
-                             <div class="flex items-center gap-2 mt-1 group/desc cursor-pointer" onclick="copySmallText(event, '${(item.description || "").replace(/'/g, "\\'")}', this)" title="Click to copy description">
-                                <p class="text-slate-500 text-sm mb-0">${item.description || ""}</p>
-                                <div class="text-blue-600 opacity-40 group-hover/desc:opacity-100 transition-opacity p-1 hover:bg-blue-50 rounded-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                                </div>
-                             </div>
+                <div class="bg-white rounded-[2rem] w-full max-w-2xl shadow-2xl overflow-hidden scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
+                        <div class="flex items-center gap-3 ml-2 group/title cursor-pointer" onclick="copyToClipboard(event, '${item.name.replace(/'/g, "\\'")}', this.querySelector('button'))">
+                            <h3 class="font-extrabold text-2xl text-slate-900">${item.name}</h3>
+                            <button class="p-1 text-blue-600 opacity-40 hover:opacity-100 transition-opacity" title="Copy name">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
                         </div>
-                        <button class="close-modal p-2 rounded-full hover:bg-slate-200 transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                        <button class="close-modal p-2 rounded-full hover:bg-slate-100 transition-colors shrink-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
                     </div>
-                    <div class="p-6 pb-2">
-                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-2">
-                            <p class="text-blue-800 text-[15px] font-bold leading-relaxed mb-0 text-center">
-                                Below are the system instructions that power this AI assistant. You can review them to see how it was built, then copy and adapt them to create your own version tailored to your role, tasks, or audience—no guesswork required.
+                    
+                    <div class="px-8 pt-6 pb-2 bg-white">
+                        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-8">
+                            <p class="text-blue-800 text-[14px] font-bold leading-relaxed mb-0">
+                                Below are the system instructions that power this AI assistant. Review how it was built, then copy and adapt them to create your own tailored version.
                             </p>
                         </div>
+
+                        <div class="space-y-6">
+                            <!-- Description Box -->
+                            <div class="space-y-2">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Description</p>
+                                <div class="relative group/desc">
+                                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 pr-12 font-mono text-sm text-slate-600 leading-relaxed min-h-[3.5rem]">
+                                        ${item.description || "No description available."}
+                                    </div>
+                                    <button onclick="copyToClipboard(event, '${(item.description || "").replace(/'/g, "\\'").replace(/\n/g, "\\n")}', this)" 
+                                            class="absolute top-3 right-3 p-2 text-blue-600 hover:bg-blue-100 rounded-xl transition-all opacity-40 group-hover/desc:opacity-100" 
+                                            title="Copy description">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Instructions Box -->
+                            <div class="space-y-2">
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Instructions</p>
+                                <div class="relative group/instr">
+                                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 pr-12 font-mono text-sm text-slate-700 leading-relaxed max-h-[35vh] overflow-y-auto hide-scrollbar whitespace-pre-wrap">
+                                        ${rawContent}
+                                    </div>
+                                    <button onclick="copyToClipboard(event, '${rawContent.replace(/'/g, "\\'").replace(/\n/g, "\\n").replace(/\r/g, "")}', this)" 
+                                            class="absolute top-3 right-3 p-2 text-blue-600 hover:bg-blue-100 rounded-xl transition-all opacity-40 group-hover/instr:opacity-100" 
+                                            title="Copy instructions">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="px-8 pb-8 pt-2 max-h-[50vh] overflow-y-auto text-slate-600 leading-relaxed text-[15px]">${htmlContent}</div>
-                    <div class="p-6 bg-slate-50/50 border-t border-slate-100 flex justify-end">
-                        <button class="copy-btn flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200">
+
+                    <div class="p-8 mt-2 bg-white flex justify-end">
+                        <button class="modal-copy-all-btn flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 hover:-translate-y-0.5" 
+                                onclick="copyToClipboard(event, '${rawContent.replace(/'/g, "\\'").replace(/\n/g, "\\n").replace(/\r/g, "")}', this, true)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                            Copy Instructions
+                            Copy All Instructions
                         </button>
                     </div>
                 </div>
             `;
             document.body.appendChild(overlay);
-            overlay.querySelector('.copy-btn').addEventListener('click', async () => {
-                try {
-                    await navigator.clipboard.writeText(rawContent);
-                    const btn = overlay.querySelector('.copy-btn');
-                    const orig = btn.innerHTML;
-                    btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
-                    btn.classList.replace('bg-blue-600', 'bg-emerald-600');
-                    setTimeout(() => { btn.innerHTML = orig; btn.classList.replace('bg-emerald-600', 'bg-blue-600'); }, 2000);
-                } catch (e) {}
-            });
-            const close = () => { overlay.style.opacity = '0'; setTimeout(() => overlay.remove(), 300); };
+            
+            const close = () => { 
+                overlay.style.opacity = '0'; 
+                overlay.children[0].classList.replace('scale-100', 'scale-95');
+                setTimeout(() => overlay.remove(), 300); 
+            };
             overlay.addEventListener('click', close);
             overlay.querySelectorAll('.close-modal').forEach(b => b.addEventListener('click', close));
-            setTimeout(() => { overlay.style.opacity = '1'; overlay.children[0].classList.replace('scale-95', 'scale-100'); }, 10);
+            setTimeout(() => { 
+                overlay.style.opacity = '1'; 
+                overlay.children[0].classList.replace('scale-95', 'scale-100'); 
+            }, 10);
         }
 
-        function copySmallText(event, text, element) {
+        // Global helper for the new modal copy buttons
+        window.copyToClipboard = async function(event, text, element, isPrimary = false) {
             event.preventDefault(); event.stopPropagation();
-            navigator.clipboard.writeText(text).then(() => {
-                const icon = element.querySelector('.text-blue-600');
-                const orig = icon.innerHTML;
-                icon.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-                icon.classList.replace('text-blue-600', 'text-emerald-600');
-                setTimeout(() => { icon.innerHTML = orig; icon.classList.replace('text-emerald-600', 'text-blue-600'); }, 1500);
-            });
-        }
+            try {
+                await navigator.clipboard.writeText(text);
+                const originalHTML = element.innerHTML;
+                const originalClass = element.className;
+                
+                if (isPrimary) {
+                    element.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
+                    element.classList.replace('bg-blue-600', 'bg-emerald-600');
+                    setTimeout(() => { 
+                        element.innerHTML = originalHTML; 
+                        element.className = originalClass; 
+                    }, 2000);
+                } else {
+                    element.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                    element.classList.replace('text-blue-600', 'text-emerald-600');
+                    setTimeout(() => { 
+                        element.innerHTML = originalHTML; 
+                        element.classList.replace('text-emerald-600', 'text-blue-600');
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        };
 
         function handleBookmark(event, name, url) {
             event.preventDefault(); event.stopPropagation();
@@ -503,9 +550,14 @@
                 try {
                     if (!payload || !payload.ok) throw new Error("API Error");
                     assistants = (payload.assistants || []).map(a => ({
-                        name: a.name || "", status: a.status || "", type: a.type || "",
-                        department: a.department || "General", category: a.category || "",
-                        url: a.url || "", description: a.description || "", instructions: a.instructions || ""
+                        name: a.name || "", 
+                        status: a.status || "", 
+                        type: a.type || "",
+                        department: a.department || "General", 
+                        category: a.category || "",
+                        url: a.url || "", 
+                        description: a.description || "", 
+                        instructions: a.instructions || ""
                     }));
                     updateFiltersUI(); applyHashFilter();
                     const now = new Date();
