@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Training Hub: Create an ADA Coach</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Google+Sans:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap');
         
@@ -16,18 +18,29 @@
         body {
             background-color: #ffffff;
             color: #1e293b;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+        }
+        
+        .dark body {
+            background-color: #0b0f1a;
+            color: #f1f5f9;
         }
 
         /* Platform Switcher Styling */
         .platform-card {
             background: white;
-            border-radius: 1.5rem;
+            border-radius: 1rem;
             border: 1px solid #e2e8f0;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             padding: 2.5rem;
             position: relative;
             z-index: 50;
+            transition: all 0.3s ease;
+        }
+        .dark .platform-card {
+            background: #111827;
+            border-color: #1f2937;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
         .tab-container {
@@ -55,15 +68,25 @@
             color: #0f172a;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
+        .dark .nav-btn.active {
+            background-color: #1e293b;
+            color: white;
+        }
 
         /* SHARED STYLES */
         .step-card {
             background: white;
-            border-radius: 1.5rem;
+            border-radius: 1rem;
             padding: 2rem;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .dark .step-card {
+            background: #111827;
+            border-color: #1f2937;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
         .step-number-circle {
             width: 2.5rem;
@@ -105,7 +128,7 @@
         .gem-theme { font-family: 'Google Sans', sans-serif; display: none; }
         .gem-theme .gem-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 1rem;
             padding: 2.5rem;
             border: 1px solid #e3e3e3;
             margin-bottom: 2rem;
@@ -168,11 +191,12 @@
 
     <!-- GENERAL HEADER -->
     <header class="pt-16 pb-8 px-4 md:px-8 max-w-4xl mx-auto relative">
-        <div class="absolute top-4 right-4 md:right-8">
+        <div class="absolute top-4 right-4 md:right-8 flex items-center gap-3">
             <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all hover:-translate-y-0.5 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to AI Assistant Library
+                Back to Library
             </a>
+            
         </div>
         <h1 class="text-4xl font-extrabold text-slate-900 mt-10 mb-6 tracking-tight">Create an AI Assistant (Custom GPT or Gem)</h1>
         <div class="text-lg text-slate-600 leading-relaxed space-y-4">
@@ -200,7 +224,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-blue-200">
                 <!-- GPT Side -->
-                <a href="https://chatgpt.com/g/g-6988b740028c8191b645e080a9f403b8-ada-digital-accessibility-coach-demo" target="_blank" class="bg-white p-6 rounded-[2rem] border border-slate-200 flex items-start space-x-4 shadow-sm hover:border-blue-400 hover:shadow-md transition group">
+                <a href="https://chatgpt.com/g/g-6988b740028c8191b645e080a9f403b8-ada-digital-accessibility-coach-demo" target="_blank" class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start space-x-4 shadow-sm hover:border-blue-400:border-blue-500 hover:shadow-md transition group">
                     <div class="flex-shrink-0 w-14 h-14 bg-slate-900 rounded-xl flex items-center justify-center overflow-hidden">
                         <img src="https://aguafriaorg.finalsite.com/fs/resource-manager/view/04e41b96-e940-464d-9b24-5b19ab2b60ca" class="w-full h-full object-cover">
                     </div>
@@ -211,7 +235,7 @@
                 </a>
 
                 <!-- Gem Side -->
-                <a href="https://gemini.google.com/gem/cc81337681b7" target="_blank" class="bg-white p-6 rounded-[2rem] border border-slate-200 flex items-center space-x-4 shadow-sm hover:border-amber-400 hover:shadow-md transition group">
+                <a href="https://gemini.google.com/gem/cc81337681b7" target="_blank" class="bg-white p-6 rounded-2xl border border-slate-200 flex items-center space-x-4 shadow-sm hover:border-amber-400:border-amber-500 hover:shadow-md transition group">
                     <div class="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden border border-slate-100">
                         <img src="https://aguafriaorg.finalsite.com/fs/resource-manager/view/43f8b818-9858-4ebe-adf6-2cbfead9c619" class="w-full h-full object-cover">
                     </div>
@@ -338,7 +362,7 @@
                                 </div>
                                 <button onclick="copyText('gpt-name')" class="text-blue-600 text-xs font-bold hover:underline mb-1">Copy Name</button>
                             </div>
-                            <div class="code-block rounded-lg p-3 text-sm" id="gpt-name">ADA Digital Accessibility Coach</div>
+                            <div class="code-block rounded-lg p-3 text-sm bg-slate-50 text-slate-900 border border-slate-200" id="gpt-name">ADA Digital Accessibility Coach</div>
                         </div>
                         <div>
                             <div class="flex justify-between items-end mb-3">
@@ -348,7 +372,7 @@
                                 </div>
                                 <button onclick="copyText('gpt-desc')" class="text-blue-600 text-xs font-bold hover:underline mb-1">Copy Description</button>
                             </div>
-                            <div class="code-block rounded-lg p-3 text-sm" id="gpt-desc">This assistant helps organizations understand ADA digital accessibility requirements, explains who the rules apply to and when, and offers practical guidance based on official DOJ sources and optional organization-specific policies.</div>
+                            <div class="code-block rounded-lg p-3 text-sm bg-slate-50 text-slate-900 border border-slate-200" id="gpt-desc">This assistant helps organizations understand ADA digital accessibility requirements, explains who the rules apply to and when, and offers practical guidance based on official DOJ sources and optional organization-specific policies.</div>
                         </div>
                         <div>
                             <div class="flex justify-between items-end mb-3">
@@ -358,7 +382,7 @@
                                 </div>
                                 <button onclick="copyText('gpt-instr')" class="text-blue-600 text-xs font-bold hover:underline mb-1">Copy Instructions</button>
                             </div>
-                            <div class="code-block rounded-lg p-4 text-[11px] leading-relaxed max-h-64 overflow-y-auto">
+                            <div class="code-block rounded-lg p-4 text-[11px] leading-relaxed max-h-64 overflow-y-auto bg-slate-50 text-slate-900 border border-slate-200 relative">
 <pre id="gpt-instr">You are an ADA digital accessibility information and coaching assistant.
 
 Your role is to help users understand and apply ADA digital accessibility requirements using plain, non-technical language.
@@ -412,7 +436,7 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Step 4 – Add Knowledge Source</h3>
                         <p class="text-lg text-slate-600 mb-8 leading-relaxed">Accepted file types: .pdf, .docx, .xlsx, .pptx, .csv, .txt, .md, .rtf, .json, .html</p>
-                        <a href="https://drive.google.com/file/d/1U6CYL1HC4u6vjUEkA5PlKid_zJ8yTbYT/view?usp=sharing" target="_blank" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex items-center shadow-sm hover:border-blue-300 transition group">
+                        <a href="https://drive.google.com/file/d/1U6CYL1HC4u6vjUEkA5PlKid_zJ8yTbYT/view?usp=sharing" target="_blank" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex items-center shadow-sm hover:border-blue-300:border-blue-500 transition group">
                             <div class="mr-5 flex-shrink-0">
                                 <img src="https://aguafriaorg.finalsite.com/fs/resource-manager/view/f26f3f72-4ec8-4b9b-8a4f-a1cdd0d2af6e" alt="PDF Icon" class="w-12 h-12 object-contain">
                             </div>
@@ -510,52 +534,52 @@ KNOWLEDGE SOURCE PRIORITY:
                         <h3 class="text-xl font-bold text-slate-900 mb-6">Step 8 – Test Your Assistant</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Q1 -->
-                            <button onclick="copyValue('What can you help me with?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('What can you help me with?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q1</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What can you help me with?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What can you help me with?"</p>
                             </button>
-                            <!-- Q2 -->
-                            <button onclick="copyValue('What does the new ADA rule require for websites and mobile apps?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                             <!-- Q2 -->
+                            <button onclick="copyValue('What does the new ADA rule require for websites and mobile apps?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q2</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What does the new ADA rule require for websites?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What does the new ADA rule require for websites?"</p>
                             </button>
                             <!-- Q3 -->
-                            <button onclick="copyValue('What are some practical steps an organization should focus on first to meet these requirements?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('What are some practical steps an organization should focus on first to meet these requirements?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q3</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What practical steps should we focus on first?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What practical steps should we focus on first?"</p>
                             </button>
                             <!-- Q4 -->
-                            <button onclick="copyValue('Does this rule say anything about accessibility requirements for social media content?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('Does this rule say anything about accessibility requirements for social media content?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q4</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What does the rule say about social media?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What does the rule say about social media?"</p>
                             </button>
                             <!-- Q5 -->
-                            <button onclick="copyValue('How do accessibility requirements apply to third-party tools or platforms an organization uses?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('How do accessibility requirements apply to third-party tools or platforms an organization uses?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q5</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"Does this apply to third-party tools?"</p>
+                                <p class="text-sm font-medium text-slate-900">"Does this apply to third-party tools?"</p>
                             </button>
                             <!-- Q6 -->
-                            <button onclick="copyValue('If we follow these steps, does that guarantee ADA compliance?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('If we follow these steps, does that guarantee ADA compliance?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q6</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"Does following this guarantee compliance?"</p>
+                                <p class="text-sm font-medium text-slate-900">"Does following this guarantee compliance?"</p>
                             </button>
                         </div>
                     </div>
@@ -712,14 +736,14 @@ KNOWLEDGE SOURCE PRIORITY:
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Step 3 – Workspace Knowledge</h3>
                         <p class="text-lg text-slate-600 mb-8 leading-relaxed">Connect your assistant to live Google Drive files, including Google Docs, Sheets, and Slides.<br>Additional accepted file types: .pdf, .docx, .xlsx, .pptx, .csv, .txt, .jpg, .jpeg, .png</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <a href="https://drive.google.com/file/d/1U6CYL1HC4u6vjUEkA5PlKid_zJ8yTbYT/view?usp=sharing" target="_blank" class="p-5 rounded-3xl bg-slate-50 border border-slate-200 flex items-center shadow-sm hover:border-blue-300 transition group">
+                            <a href="https://drive.google.com/file/d/1U6CYL1HC4u6vjUEkA5PlKid_zJ8yTbYT/view?usp=sharing" target="_blank" class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center shadow-sm hover:border-blue-300 transition group">
                                 <img src="https://aguafriaorg.finalsite.com/fs/resource-manager/view/f26f3f72-4ec8-4b9b-8a4f-a1cdd0d2af6e" class="w-12 h-12 mr-4 object-contain">
                                 <div>
                                     <h4 class="text-sm font-bold">Fact Sheet: New Rule on the Accessibility of Web Content and Mobile Apps Provided by State and Local Governments</h4>
                                     <span class="text-blue-600 text-[10px] font-bold uppercase hover:underline">Download to Drive</span>
                                 </div>
                             </a>
-                            <div class="p-5 rounded-3xl bg-slate-50 border border-slate-200 flex items-center shadow-sm">
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center shadow-sm">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Google_Docs_logo_%282014-2020%29.svg" class="w-10 h-10 mr-4">
                                 <div>
                                     <h4 class="text-sm font-bold">Organization Policy</h4>
@@ -731,73 +755,102 @@ KNOWLEDGE SOURCE PRIORITY:
                 </div>
             </div>
 
-            <!-- STEP 4 -->
-            <div class="gem-card">
-                <div class="flex items-start space-x-6">
-                    <div class="step-number-circle bg-blue-600 text-white text-sm">4</div>
-                    <div class="flex-grow">
-                        <h3 class="text-xl font-bold text-slate-900 mb-6">Step 4 – Finish & Create</h3>
-                        <div class="flex justify-center">
-                            <button id="gem-save-btn" class="bg-blue-600 text-white px-12 py-3.5 rounded-full font-bold shadow-lg transition transform hover:scale-105">Create Gem</button>
+1. First, use the connected Google Docs for organization-specific policies.
+2. If not covered, search official guidance on ADA.gov.</pre>
+                                <button onclick="copyText('gem-instr')" class="absolute top-2 right-2 text-amber-600 text-xs font-bold bg-white px-2 py-1 rounded shadow-sm border border-slate-200">Copy Instructions</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 5 -->
-            <div class="gem-card">
-                <div class="flex items-start space-x-6">
-                    <div class="step-number-circle bg-blue-600 text-white text-sm">5</div>
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="flex items-start space-x-5">
+                    <div class="step-number-circle bg-amber-600 text-white">3</div>
                     <div class="flex-grow">
-                        <h3 class="text-xl font-bold text-slate-900 mb-6">Step 5 – Test Your Assistant</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Step 3 – Link Organization Knowledge Sources</h3>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Unlike Custom GPTs which use static uploads, Gems can connect directly to living documents in your Google Drive. Follow these steps to link your policies.</p>
+                        
+                        <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 shadow-sm">
+                            <h4 class="font-bold text-amber-900 mb-3 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M21.3 14.1L15 2.1c-.2-.4-.6-.6-1-.6H10c-.4 0-.8.2-1 .6L2.7 14.1c-.2.4-.2.9 0 1.2l3.2 6.1c.2.4.6.6 1 .6h10.2c.4 0 .8-.2 1-.6l3.2-6.1c.2-.3.2-.8 0-1.2zm-12.2.9h5.8l2.9 5.5H6.2l2.9-5.5zM12 4.4l3.8 7.1H8.2L12 4.4z"/></svg>
+                                Google Drive Integration
+                            </h4>
+                            <p class="text-sm text-amber-800 leading-relaxed">In the Gem editor, click the <strong>+</strong> or <strong>Add knowledge</strong> button and select the Google Drive icon to search for and link your live documents.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card">
+                <div class="flex items-start space-x-5">
+                    <div class="step-number-circle bg-amber-600 text-white">4</div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Step 4 – Save Your Gem</h3>
+                        <p class="text-lg text-slate-600 mb-6 leading-relaxed">Once you've entered the name, instructions, and linked your knowledge sources, click <strong>Create</strong> or <strong>Save</strong> in the top-right corner.</p>
+                        <div class="flex justify-center">
+                            <div class="bg-slate-900 text-white px-10 py-3 rounded-full font-bold shadow-lg transition">Create Gem</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card">
+                <div class="flex items-start space-x-5">
+                    <div class="step-number-circle bg-amber-600 text-white">5</div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Step 5 – Test Your Gemini Gem</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Q1 -->
-                            <button onclick="copyValue('What can you help me with?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('What can you help me with?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-amber-300:border-amber-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q1</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-amber-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What can you help me with?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What can you help me with?"</p>
                             </button>
                             <!-- Q2 -->
-                            <button onclick="copyValue('What does the new ADA rule require for websites and mobile apps?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('What does the new ADA rule require for websites and mobile apps?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-amber-300:border-amber-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q2</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-amber-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What does the new ADA rule require for websites?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What does the new ADA rule require for websites?"</p>
                             </button>
                             <!-- Q3 -->
-                            <button onclick="copyValue('What are some practical steps an organization should focus on first to meet these requirements?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('What are some practical steps an organization should focus on first to meet these requirements?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-amber-300:border-amber-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q3</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-amber-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What practical steps should we focus on first?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What practical steps should we focus on first?"</p>
                             </button>
-                            <!-- Q4 -->
-                            <button onclick="copyValue('Does this rule say anything about accessibility requirements for social media content?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                             <!-- Q4 -->
+                             <button onclick="copyValue('Does this rule say anything about accessibility requirements for social media content?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-amber-300:border-amber-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q4</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-amber-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"What does the rule say about social media?"</p>
+                                <p class="text-sm font-medium text-slate-900">"What does the rule say about social media?"</p>
                             </button>
                             <!-- Q5 -->
-                            <button onclick="copyValue('How do accessibility requirements apply to third-party tools or platforms an organization uses?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('How do accessibility requirements apply to third-party tools or platforms an organization uses?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-amber-300:border-amber-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q5</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-amber-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"Does this apply to third-party tools?"</p>
+                                <p class="text-sm font-medium text-slate-900">"Does this apply to third-party tools?"</p>
                             </button>
                             <!-- Q6 -->
-                            <button onclick="copyValue('If we follow these steps, does that guarantee ADA compliance?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300 group">
+                            <button onclick="copyValue('If we follow these steps, does that guarantee ADA compliance?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-amber-300:border-amber-500 group transition-colors">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Q6</span>
-                                    <span class="text-blue-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100">Copy</span>
+                                    <span class="text-amber-600 text-[10px] font-bold bg-white px-2 py-0.5 rounded-full shadow-sm border border-slate-100 transition-colors">Copy</span>
                                 </div>
-                                <p class="text-sm font-medium">"Does following this guarantee compliance?"</p>
+                                <p class="text-sm font-medium text-slate-900">"Does following this guarantee compliance?"</p>
                             </button>
                         </div>
                     </div>
@@ -809,6 +862,8 @@ KNOWLEDGE SOURCE PRIORITY:
     <div id="toast" class="notification">Copied to clipboard!</div>
 
     <script>
+
+
         function switchTab(platform) {
             const gptContent = document.getElementById('content-gpt');
             const gemContent = document.getElementById('content-gem');

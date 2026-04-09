@@ -9,7 +9,8 @@
     <link rel="icon"
         href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
 
@@ -48,7 +49,7 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body class="bg-slate-50 text-slate-900 min-h-screen transition-colors duration-300">
 
     <div id="app" class="max-w-6xl mx-auto p-4 md:p-8">
         <header class="mb-8 flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -73,7 +74,7 @@
                     Create my own AI assistant
                 </a>
                 <a href="prompts.html"
-                    class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
+                    class="inline-flex items-center justify-center gap-2 bg-white border border-slate-200 hover:bg-slate-50:bg-slate-700 text-slate-700 px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 whitespace-nowrap">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
                         class="w-5 h-5 text-blue-600">
@@ -84,6 +85,7 @@
                     </svg>
                     View AI Prompt Library
                 </a>
+                
             </div>
         </header>
 
@@ -97,12 +99,12 @@
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
                     <input id="search-input" type="text" placeholder="Search by name or description..."
-                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all h-[48px]" />
+                        class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 transition-all h-[48px]" />
                 </div>
 
                 <div class="flex items-center gap-3 w-full md:w-auto">
                     <select id="department-filter"
-                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]">
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 shadow-sm flex-grow md:flex-grow-0 cursor-pointer h-[48px]">
                         <option value="All">All Departments</option>
                     </select>
 
@@ -119,7 +121,7 @@
                             </svg>
                         </button>
                         <button id="list-view-btn"
-                            class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600">
+                            class="w-12 h-full flex items-center justify-center transition-all outline-none border-l border-slate-100 text-slate-400 hover:text-slate-600:text-slate-200">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -278,9 +280,9 @@
                     if (selectedCategory === cat) {
                         pillClasses = "bg-blue-600 text-white shadow-md";
                     } else if (cat === "Featured" || cat === "New") {
-                        pillClasses = "bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-200 hover:border-blue-300";
+                        pillClasses = "bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-200:bg-blue-800/50 hover:border-blue-300:border-blue-700";
                     } else {
-                        pillClasses = "bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:bg-blue-50";
+                        pillClasses = "bg-white text-slate-600 border border-slate-200 hover:border-blue-300:border-blue-700 hover:bg-blue-50:bg-blue-900/20";
                     }
                     return `
                         <button onclick="setCategory('${cat.replace(/'/g, "\\'")}')" class="category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all ${pillClasses}" data-category="${cat}">
@@ -394,7 +396,7 @@
             currentFilteredData = data;
             gridContainer.innerHTML = data.map((item, idx) => {
                 const statusLower = (item.status || "").toLowerCase();
-                const isSpecial = statusLower.includes('featured') || statusLower.includes('new');
+                const isSpecial = statusLower.includes('featured') || statusLower.includes('new') || statusLower.includes('beta');
                 const safeName = (item.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
 
                 const commonButtons = `
@@ -404,13 +406,25 @@
                 `;
 
                 if (isSpecial) {
-                    const isNew = statusLower.includes('new');
-                    const badgeText = isNew ? "New" : "Featured";
-                    const badgeColor = isNew ? "bg-red-600" : "bg-blue-600";
-                    const borderColor = isNew ? "border-red-200" : "border-blue-200";
+                    let badgeText = "";
+                    let badgeColor = "";
+                    let borderColor = "";
 
+                    if (statusLower.includes('new')) {
+                        badgeText = "New";
+                        badgeColor = "bg-red-600";
+                        borderColor = "border-red-200";
+                    } else if (statusLower.includes('beta')) {
+                        badgeText = "Beta";
+                        badgeColor = "bg-amber-500";
+                        borderColor = "border-amber-200";
+                    } else {
+                        badgeText = "Featured";
+                        badgeColor = "bg-blue-600";
+                        borderColor = "border-blue-200";
+                    }
                     return `
-                        <a href="${item.url || "#"}" target="_blank" class="group bg-white rounded-3xl border ${borderColor} p-6 hover:shadow-xl transition-all flex flex-col h-full relative overflow-hidden">
+                        <a href="${item.url || "#"}" target="_blank" class="group bg-white rounded-2xl border ${borderColor} shadow-sm p-6 hover:shadow-xl hover:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
                             <div class="absolute top-0 right-0 ${badgeColor} text-white text-[10px] font-black px-3 py-1 rounded-bl-xl uppercase tracking-widest z-10">${badgeText}</div>
                             <div class="mb-4">${getPlatformIconHTML(item.type, true)}</div>
                             <div class="flex-grow">
@@ -425,11 +439,14 @@
                     `;
                 }
 
+                const statusText = (item.status || "").toLowerCase();
+                const showBadge = statusText.includes('new');
+
                 return `
-                    <a href="${item.url || "#"}" target="_blank" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-blue-400 hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col h-full relative">
-                        <div class="flex items-start justify-between mb-4">${getPlatformIconHTML(item.type, true)}<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)}">${item.status || ""}</span></div>
+                    <a href="${item.url || "#"}" target="_blank" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 transition-all group flex flex-col h-full relative">
+                        <div class="flex items-start justify-between mb-4">${getPlatformIconHTML(item.type, true)}${showBadge ? `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)}">${item.status || ""}</span>` : ''}</div>
                         <div class="flex-grow">
-                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
+                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600:text-blue-400 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
                             <p class="text-sm text-slate-500 line-clamp-2 mb-4">${item.description || ""}</p>
                         </div>
                         <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
@@ -445,12 +462,14 @@
             currentFilteredData = data;
             listTbody.innerHTML = data.map((item, idx) => {
                 const safeName = (item.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                const statusText = (item.status || "").toLowerCase();
+                const showBadge = statusText.includes('new') || statusText.includes('featured') || statusText.includes('beta');
                 return `
-                <tr onclick="window.open('${item.url || "#"}', '_blank')" class="hover:bg-blue-50 transition-colors cursor-pointer group">
+                <tr onclick="window.open('${item.url || "#"}', '_blank')" class="hover:bg-blue-50:bg-blue-900/20 transition-colors cursor-pointer group">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-4">${getPlatformIconHTML(item.type, false)}
                             <div>
-                                <div class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">${item.name || ""}</div>
+                                <div class="font-bold text-slate-900 group-hover:text-blue-600:text-blue-400 transition-colors">${item.name || ""}</div>
                                 <div class="text-xs text-slate-400 line-clamp-1 max-w-md">${item.description || ""}</div>
                             </div>
                         </div>
@@ -459,11 +478,11 @@
                     <td class="px-6 py-4"><span class="text-sm text-slate-600">${item.type || ""}</span></td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-1.5">
-                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)} mr-1">${item.status || ""}</span>
-                            <button onclick="handleFeedback(event)" title="Feedback" class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">${ICONS.feedback}</button>
-                            <button onclick="handleBookmark(event, '${safeName}', '${item.url || ""}')" title="Bookmark" class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">${ICONS.bookmark}</button>
-                            ${item.instructions ? `<button onclick="openAssistantModal_v2(event, ${idx})" title="Instructions" class="p-1.5 rounded-md hover:bg-white text-blue-600 transition-colors">${ICONS.copy}</button>` : ''}
-                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors ml-1"></i>
+                            ${showBadge ? `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)} mr-1">${item.status || ""}</span>` : ''}
+                            <button onclick="handleFeedback(event)" title="Feedback" class="p-1.5 rounded-md hover:bg-white:bg-slate-800 text-blue-600 transition-colors">${ICONS.feedback}</button>
+                            <button onclick="handleBookmark(event, '${safeName}', '${item.url || ""}')" title="Bookmark" class="p-1.5 rounded-md hover:bg-white:bg-slate-800 text-blue-600 transition-colors">${ICONS.bookmark}</button>
+                            ${item.instructions ? `<button onclick="openAssistantModal_v2(event, ${idx})" title="Instructions" class="p-1.5 rounded-md hover:bg-white:bg-slate-800 text-blue-600 transition-colors">${ICONS.copy}</button>` : ''}
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-500:text-blue-400 transition-colors ml-1"></i>
                         </div>
                     </td>
                 </tr>
@@ -475,6 +494,7 @@
             if (s.includes('featured')) return 'bg-purple-100 text-purple-700';
             if (s.includes('live')) return 'bg-emerald-100 text-emerald-700';
             if (s.includes('new')) return 'bg-red-100 text-red-700';
+            if (s.includes('beta')) return 'bg-amber-100 text-amber-700';
             return 'bg-amber-100 text-amber-700';
         }
 
@@ -502,7 +522,7 @@
             overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4 transition-opacity duration-300';
             overlay.style.opacity = '0';
             overlay.innerHTML = `
-                <div class="bg-white rounded-[2rem] w-full max-w-2xl shadow-2xl overflow-hidden scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+                <div class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden scale-95 transition-transform duration-300 border border-slate-100" onclick="event.stopPropagation()">
                     <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
                         <div class="flex items-center gap-3 ml-2 group/title cursor-pointer" onclick="copyToClipboard(event, '${item.name.replace(/'/g, "\\'")}', this.querySelector('button'))">
                             <h3 class="font-extrabold text-2xl text-slate-900">${item.name}</h3>
@@ -510,7 +530,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                             </button>
                         </div>
-                        <button class="close-modal p-2 rounded-full hover:bg-slate-100 transition-colors shrink-0">
+                        <button class="close-modal p-2 rounded-full hover:bg-slate-100:bg-slate-800 transition-colors shrink-0 text-slate-500">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                         </button>
                     </div>
@@ -521,7 +541,7 @@
                                 Below are the system instructions that power this AI assistant. Review how it was built, then copy and adapt them to create your own tailored version.
                             </p>
                         </div>
-
+ 
                         <div class="space-y-6">
                             <!-- Description Box -->
                             <div class="space-y-2">
@@ -531,13 +551,13 @@
                                         ${item.description || "No description available."}
                                     </div>
                                     <button onclick="copyToClipboard(event, '${(item.description || "").replace(/'/g, "\\'").replace(/\n/g, "\\n")}', this)" 
-                                            class="absolute top-3 right-3 p-2 text-blue-600 hover:bg-blue-100 rounded-xl transition-all opacity-40 group-hover/desc:opacity-100" 
+                                            class="absolute top-3 right-3 p-2 text-blue-600 hover:bg-blue-100:bg-blue-900/40 rounded-xl transition-all opacity-40 group-hover/desc:opacity-100" 
                                             title="Copy description">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                     </button>
                                 </div>
                             </div>
-
+ 
                             <!-- Instructions Box -->
                             <div class="space-y-2">
                                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Instructions</p>
@@ -546,7 +566,7 @@
                                         ${rawContent}
                                     </div>
                                     <button onclick="copyToClipboard(event, '${rawContent.replace(/'/g, "\\'").replace(/\n/g, "\\n").replace(/\r/g, "")}', this)" 
-                                            class="absolute top-3 right-3 p-2 text-blue-600 hover:bg-blue-100 rounded-xl transition-all opacity-40 group-hover/instr:opacity-100" 
+                                            class="absolute top-3 right-3 p-2 text-blue-600 hover:bg-blue-100:bg-blue-900/40 rounded-xl transition-all opacity-40 group-hover/instr:opacity-100" 
                                             title="Copy instructions">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                     </button>
@@ -554,9 +574,9 @@
                             </div>
                         </div>
                     </div>
-
+ 
                     <div class="p-8 mt-2 bg-white flex justify-end">
-                        <button class="modal-copy-all-btn flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 hover:-translate-y-0.5" 
+                        <button class="modal-copy-all-btn flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700:bg-blue-500 transition-all shadow-lg shadow-blue-100 hover:-translate-y-0.5" 
                                 onclick="copyToClipboard(event, '${rawContent.replace(/'/g, "\\'").replace(/\n/g, "\\n").replace(/\r/g, "")}', this, true)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                             Copy All Instructions
@@ -617,6 +637,8 @@
             setTimeout(() => msg.style.opacity = '1', 10);
             setTimeout(() => { msg.style.opacity = '0'; setTimeout(() => msg.remove(), 300); }, 5000);
         }
+
+        
 
         function resetFilters() { searchQuery = ""; selectedCategory = "All"; selectedDepartment = "All"; searchInput.value = ""; departmentFilter.value = "All"; window.location.hash = ""; updateFiltersUI(); render(); }
 
