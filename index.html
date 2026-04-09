@@ -46,6 +46,45 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Featured section expand/collapse animation */
+        .featured-grid-wrapper {
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: -24px;
+            padding: 24px;
+        }
+
+        .featured-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2563eb;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .featured-toggle-btn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+        }
+
+        .featured-toggle-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .featured-toggle-btn.expanded svg {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 
@@ -88,6 +127,28 @@
                 
             </div>
         </header>
+
+        <!-- Featured Cards Section -->
+        <div id="featured-section" class="mb-10 hidden">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="0" class="w-5 h-5 text-blue-600">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    Featured Assistants
+                </h2>
+                <button id="featured-toggle" class="featured-toggle-btn" onclick="toggleFeatured()" style="display:none;">
+                    <span id="featured-toggle-label">Show more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div id="featured-grid-wrapper" class="featured-grid-wrapper">
+                <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+            </div>
+        </div>
 
         <div class="space-y-6 mb-8">
             <div class="flex flex-col md:flex-row gap-4 items-stretch">
@@ -272,20 +333,23 @@
 
         function updateFiltersUI() {
             try {
-                const baseCategories = [...new Set(assistants.map(a => a.category))].filter(c => c !== "").sort();
+                if (!Array.isArray(assistants)) return;
+
+                const baseCategories = [...new Set(assistants.map(a => a.category || ""))].filter(c => c !== "").sort();
                 const uniqueCategories = ["All", "Featured", "New", ...baseCategories];
 
                 categoryFilters.innerHTML = uniqueCategories.map(cat => {
+                    const safeCat = (cat || "").replace(/'/g, "\\'");
                     let pillClasses = "";
                     if (selectedCategory === cat) {
                         pillClasses = "bg-blue-600 text-white shadow-md";
                     } else if (cat === "Featured" || cat === "New") {
-                        pillClasses = "bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-200:bg-blue-800/50 hover:border-blue-300:border-blue-700";
+                        pillClasses = "bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-200";
                     } else {
-                        pillClasses = "bg-white text-slate-600 border border-slate-200 hover:border-blue-300:border-blue-700 hover:bg-blue-50:bg-blue-900/20";
+                        pillClasses = "bg-white text-slate-600 border border-slate-200 hover:bg-blue-50 hover:border-blue-300";
                     }
                     return `
-                        <button onclick="setCategory('${cat.replace(/'/g, "\\'")}')" class="category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all ${pillClasses}" data-category="${cat}">
+                        <button onclick="setCategory('${safeCat}')" class="category-pill px-4 py-1.5 rounded-full text-sm font-medium transition-all ${pillClasses}" data-category="${cat}">
                             ${cat}
                         </button>
                     `;
@@ -344,8 +408,124 @@
 
         window.addEventListener('hashchange', applyHashFilter);
 
+        // Featured section state
+        let featuredExpanded = false;
+        const FEATURED_VISIBLE_COUNT = 3;
+
+        function renderFeaturedSection() {
+            try {
+                const featuredSection = document.getElementById('featured-section');
+                const featuredGrid = document.getElementById('featured-grid');
+                const featuredToggle = document.getElementById('featured-toggle');
+                if (!featuredSection || !featuredGrid) return;
+
+                // Only show featured section when no filters are active (default view)
+                const isDefaultView = searchQuery === "" && selectedCategory === "All" && selectedDepartment === "All";
+
+                const featuredItems = Array.isArray(assistants) ? assistants.filter(a => (a.status || "").toLowerCase().includes('featured')) : [];
+                featuredItems.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+
+                if (!isDefaultView || featuredItems.length === 0) {
+                    featuredSection.classList.add('hidden');
+                    return;
+                }
+
+                featuredSection.classList.remove('hidden');
+
+                // Render all featured cards into the grid
+                featuredGrid.innerHTML = featuredItems.map((item, idx) => {
+                    const safeName = (item.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                    const commonButtons = `
+                        <button onclick="handleFeedback(event)" title="Feedback" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${ICONS.feedback}</button>
+                        <button onclick="handleBookmark(event, '${safeName}', '${item.url || ""}')" title="Bookmark" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${ICONS.bookmark}</button>
+                        ${item.instructions ? `<button onclick="openFeaturedModal(event, ${idx})" title="View instructions" class="p-1.5 rounded-md hover:bg-blue-50 text-blue-600 transition-colors">${ICONS.copy}</button>` : ''}
+                    `;
+                    return `
+                        <a href="${item.url || "#"}" target="_blank" class="group bg-white rounded-2xl border border-blue-200 shadow-sm p-6 hover:shadow-lg hover:shadow-blue-900/15 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl uppercase tracking-widest z-10">Featured</div>
+                            <div class="mb-4">${getPlatformIconHTML(item.type, true)}</div>
+                            <div class="flex-grow">
+                                <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
+                                <p class="text-slate-500 text-sm line-clamp-2 mb-4">${item.description || ""}</p>
+                            </div>
+                            <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+                                <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">${item.department || 'General'}</span>
+                                <div class="flex items-center gap-1.5">${commonButtons}<i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-blue-50 transition-colors"></i></div>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+
+                window._featuredItems = featuredItems;
+
+                if (featuredToggle) {
+                    featuredToggle.style.display = featuredItems.length > FEATURED_VISIBLE_COUNT ? '' : 'none';
+                }
+
+                updateFeaturedHeight();
+            } catch (e) {
+                console.error("Featured section render failed:", e);
+            }
+        }
+
+        function updateFeaturedHeight() {
+            const featuredWrapper = document.getElementById('featured-grid-wrapper');
+            const featuredGrid = document.getElementById('featured-grid');
+
+            if (featuredExpanded) {
+                // Set to full scroll height + padding for smooth animation
+                featuredWrapper.style.maxHeight = (featuredGrid.scrollHeight + 48) + 'px';
+            } else {
+                // Calculate the height of one row (first card height + gap)
+                const cards = featuredGrid.children;
+                if (cards.length > 0) {
+                    // Use requestAnimationFrame to ensure layout is computed
+                    requestAnimationFrame(() => {
+                        const firstCard = cards[0];
+                        const cardRect = firstCard.getBoundingClientRect();
+                        // One row height = card height + top padding + safe bottom space (just enough for shadow)
+                        // Using 42px instead of 48px to keep the second row hidden (gap-6 = 24px)
+                        const oneRowHeight = cardRect.height + 42; 
+                        featuredWrapper.style.maxHeight = oneRowHeight + 'px';
+                    });
+                }
+            }
+        }
+
+        function toggleFeatured() {
+            featuredExpanded = !featuredExpanded;
+            const toggleBtn = document.getElementById('featured-toggle');
+            const toggleLabel = document.getElementById('featured-toggle-label');
+
+            if (featuredExpanded) {
+                toggleLabel.textContent = 'Show less';
+                toggleBtn.classList.add('expanded');
+            } else {
+                toggleLabel.textContent = 'Show more';
+                toggleBtn.classList.remove('expanded');
+            }
+
+            updateFeaturedHeight();
+        }
+
+        // Modal for featured items (uses same style as main modal)
+        function openFeaturedModal(event, idx) {
+            event.preventDefault(); event.stopPropagation();
+            const items = window._featuredItems || [];
+            const item = items[idx];
+            if (!item) return;
+            // Reuse existing modal by temporarily setting currentFilteredData
+            const origData = currentFilteredData;
+            currentFilteredData = items;
+            openAssistantModal_v2(event, idx);
+            currentFilteredData = origData;
+        }
+
         function render() {
             try {
+                // Render featured section
+                renderFeaturedSection();
+
                 const filtered = assistants.filter(item => {
                     const name = (item.name || "").toLowerCase();
                     const desc = (item.description || "").toLowerCase();
@@ -358,15 +538,7 @@
                     else { matchesCategory = item.category === selectedCategory; }
                     const matchesDepartment = selectedDepartment === "All" || (item.department || "General") === selectedDepartment;
                     return matchesSearch && matchesCategory && matchesDepartment;
-                }).sort((a, b) => {
-                    const aStatus = (a.status || "").toLowerCase();
-                    const bStatus = (b.status || "").toLowerCase();
-                    const aSpecial = aStatus.includes('featured');
-                    const bSpecial = bStatus.includes('featured');
-                    if (aSpecial && !bSpecial) return -1;
-                    if (!aSpecial && bSpecial) return 1;
-                    return (a.name || "").localeCompare((b.name || ""));
-                });
+                }).sort((a, b) => (a.name || "").localeCompare((b.name || "")));
 
                 resultsCount.textContent = `Found ${filtered.length} assistant${filtered.length !== 1 ? 's' : ''}`;
 
@@ -394,7 +566,7 @@
 
         function renderGrid(data) {
             currentFilteredData = data;
-            gridContainer.innerHTML = data.map((item, idx) => {
+            gridContainer.innerHTML = (data || []).map((item, idx) => {
                 const statusLower = (item.status || "").toLowerCase();
                 const isSpecial = statusLower.includes('featured') || statusLower.includes('new') || statusLower.includes('beta');
                 const safeName = (item.name || "").replace(/'/g, "\\'").replace(/"/g, "&quot;");
@@ -433,7 +605,7 @@
                             </div>
                             <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                                 <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">${item.department || 'General'}</span>
-                                <div class="flex items-center gap-1.5">${commonButtons}<i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors"></i></div>
+                                <div class="flex items-center gap-1.5">${commonButtons}<i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-blue-50 transition-colors"></i></div>
                             </div>
                         </a>
                     `;
@@ -446,12 +618,12 @@
                     <a href="${item.url || "#"}" target="_blank" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 transition-all group flex flex-col h-full relative">
                         <div class="flex items-start justify-between mb-4">${getPlatformIconHTML(item.type, true)}${showBadge ? `<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${getStatusClass(item.status)}">${item.status || ""}</span>` : ''}</div>
                         <div class="flex-grow">
-                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600:text-blue-400 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
+                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-tight">${item.name || ""}</h3>
                             <p class="text-sm text-slate-500 line-clamp-2 mb-4">${item.description || ""}</p>
                         </div>
                         <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                             <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">${item.department || 'General'}</span>
-                            <div class="flex items-center gap-1.5">${commonButtons}<i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors"></i></div>
+                            <div class="flex items-center gap-1.5">${commonButtons}<i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-blue-50 transition-colors"></i></div>
                         </div>
                     </a>
                 `;
@@ -649,7 +821,7 @@
             const cleanup = () => { try { delete window[cbName]; } catch { } script.remove(); };
             window[cbName] = (payload) => {
                 try {
-                    if (!payload || !payload.ok) throw new Error("API Error");
+                    if (!payload || !payload.ok) throw new Error(payload ? payload.error || "API Error" : "No payload");
                     assistants = (payload.assistants || []).map(a => ({
                         name: a.name || "",
                         status: a.status || "",
@@ -665,12 +837,18 @@
                     const upd = document.getElementById('last-updated');
                     if (upd) upd.textContent = 'Last updated: ' + (now.getMonth() + 1) + '.' + now.getDate() + ' ' + now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
                 } catch (e) {
+                    console.error("JSONP Callback failed:", e);
                     assistants = []; updateFiltersUI(); render();
-                    if (noResultsMsg) noResultsMsg.textContent = "Data load failed.";
+                    resultsCount.textContent = "Data load failed.";
+                    if (noResultsMsg) noResultsMsg.textContent = "Trouble loading data. Please refresh or try again later.";
                 } finally { cleanup(); }
             };
             script.src = `${DATA_API_URL}?action=assistants&tab=${encodeURIComponent(SHEET_TAB_NAME)}&callback=${encodeURIComponent(cbName)}`;
-            script.onerror = () => { assistants = []; updateFiltersUI(); render(); cleanup(); };
+            script.onerror = () => { 
+                console.error("JSONP script load error");
+                assistants = []; updateFiltersUI(); render(); cleanup(); 
+                resultsCount.textContent = "Connection error.";
+            };
             document.head.appendChild(script);
         }
 
