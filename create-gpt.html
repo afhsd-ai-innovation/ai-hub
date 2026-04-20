@@ -20,6 +20,17 @@
             color: #1e293b;
             transition: all 0.3s ease;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-container.block {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        #wizard-modal.hidden { display: none; }
+        #wizard-modal.flex { display: flex; }
         
         .dark body {
             background-color: #0b0f1a;
@@ -186,6 +197,7 @@
 
         details summary::-webkit-details-marker { display:none; }
     </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen transition-colors duration-300">
 
@@ -336,21 +348,53 @@
                     </div>
                 </div>
                 
-            </header>
+            </header>            <div class="py-12 max-w-4xl">
+                <!-- ========================================== -->
+                <!-- CUSTOM GPT CONTENT -->
+                <!-- ========================================== -->
+                <div id="content-gpt" class="gpt-theme">
+                    
+                    <!-- Capability Highlights Banner -->
+                    <div class="mb-10 p-6 rounded-2xl bg-gradient-to-br from-teal-600 to-blue-600 text-white shadow-xl border border-teal-500/30 relative overflow-hidden">
+                        <!-- Background Decoration -->
+                        <div class="absolute -right-16 -top-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                        
+                        <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="flex-grow">
+                            <div class="flex items-center gap-4 mb-6">
+                                <span class="bg-white/20 text-white px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-white/30 whitespace-nowrap shrink-0">Platform Insight</span>
+                                <h2 class="text-xl font-extrabold leading-tight text-white whitespace-nowrap">Custom GPT Capabilities</h2>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3">
+                                <div class="flex items-start gap-2 text-sm text-white/90 whitespace-nowrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-teal-200 mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong class="text-white font-semibold">Web Search Control</strong></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-white/90 whitespace-nowrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-teal-200 mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong class="text-white font-semibold">Static Knowledge</strong></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-white/90 whitespace-nowrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-teal-200 mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong class="text-white font-semibold">20 File Capacity</strong></span>
+                                </div>
+                                <div class="flex items-start gap-2 text-sm text-white/90 whitespace-nowrap">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-teal-200 mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span><strong class="text-white font-semibold">Data Protection</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                            
+                            <div class="shrink-0 flex flex-col items-center gap-3">
+                                <p class="text-[10px] text-white/60 font-bold uppercase tracking-widest">Unsure about this platform?</p>
+                                <button onclick="openWizardModal()" class="bg-white text-teal-700 px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg hover:bg-slate-100 hover:scale-105 transition-all flex items-center gap-2">
+                                    <span>Launch Decision Wizard</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-    
-
-    
-
-    
-
-    <main class="py-12 max-w-4xl">
-        
-        <!-- ========================================== -->
-        <!-- CUSTOM GPT CONTENT -->
-        <!-- ========================================== -->
-        <div id="content-gpt" class="gpt-theme">
-            
             <h2 class="text-3xl font-bold text-slate-800 mb-8">Build Your Custom GPT Assistant</h2>
 
             <!-- Step 1 -->
@@ -389,36 +433,63 @@
                     <div class="step-number-circle bg-teal-600 text-white">3</div>
                     <div class="flex-grow space-y-8">
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Step 3 – Copy Paste Name, Description and Instructions</h3>
+                        
+                        <!-- Name Field -->
                         <div>
                             <div class="flex justify-between items-end mb-3">
-                                <div>
-                                    <label class="text-lg font-bold text-slate-900 block">Name</label>
+                                <div class="flex-grow pr-4">
+                                    <label class="text-lg font-bold text-slate-900 block mb-1">Name</label>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-2">The title of your GPT. This is what users see in search results, the GPT Store, shared links, and at the top of the chat. Use a clear, specific name so users immediately understand what the GPT does.</p>
                                     <span class="inline-block bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide">Up to 50 characters</span>
                                 </div>
-                                <button onclick="copyText('gpt-name')" class="text-blue-600 text-xs font-bold hover:underline mb-1">Copy Name</button>
+                                <button onclick="copyText('gpt-name')" class="text-blue-600 text-xs font-bold hover:underline mb-1 whitespace-nowrap">Copy Name</button>
                             </div>
                             <div class="code-block rounded-2xl p-4 border border-slate-200 bg-white text-sm text-slate-800" id="gpt-name">ADA Digital Accessibility Coach</div>
                         </div>
+
+                        <!-- Description Field -->
                         <div>
                             <div class="flex justify-between items-end mb-3">
-                                <div>
-                                    <label class="text-lg font-bold text-slate-900 block">Description</label>
+                                <div class="flex-grow pr-4">
+                                    <label class="text-lg font-bold text-slate-900 block mb-1">Description</label>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-2">A short summary of your GPT. Use it to explain the GPT’s purpose, who it is for, and what kinds of tasks it helps with. This also appears in previews and in GPT Store listings before someone opens it.</p>
                                     <span class="inline-block bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide">Up to 300 characters</span>
                                 </div>
-                                <button onclick="copyText('gpt-desc')" class="text-blue-600 text-xs font-bold hover:underline mb-1">Copy Description</button>
+                                <button onclick="copyText('gpt-desc')" class="text-blue-600 text-xs font-bold hover:underline mb-1 whitespace-nowrap">Copy Description</button>
                             </div>
                             <div class="code-block rounded-2xl p-4 border border-slate-200 bg-white text-sm text-slate-800" id="gpt-desc">This assistant helps organizations understand ADA digital accessibility requirements, explains who the rules apply to and when, and offers practical guidance based on official DOJ sources and optional organization-specific policies.</div>
                         </div>
+
+                        <!-- Instructions Field Description -->
                         <div>
                             <div class="flex justify-between items-end mb-3">
                                 <div>
-                                    <label class="text-lg font-bold text-slate-900 block">Instructions / System Prompt</label>
+                                    <label class="text-lg font-bold text-slate-900 block mb-1">Instructions / System Prompt</label>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-2">Instructions define how your GPT behaves: what it should do, how it should respond, and what it should avoid. These are applied to every conversation and guide the GPT’s tone, structure, and decision-making.</p>
                                     <span class="inline-block bg-blue-100 text-blue-900 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide">Up to 8,000 characters</span>
                                 </div>
-                                <button onclick="copyText('gpt-instr')" class="text-blue-600 text-xs font-bold hover:underline mb-1">Copy Instructions</button>
+                            </div>
+                        </div>
+
+                        <!-- Writing Effective Instructions Guide -->
+                        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Writing Effective Instructions</h4>
+                            <ul class="text-sm text-slate-600 space-y-3 list-disc pl-5">
+                                <li><strong>Multi-step workflows:</strong> Use explicit step structure (e.g., “When X happens → do Y”) and clear delimiters.</li>
+                                <li><strong>Be positive:</strong> Prefer concrete instructions (“Do X”) over long lists of prohibitions (“Don’t do Y”).</li>
+                                <li><strong>Specific definitions:</strong> If you must apply specific classifications, include examples of acceptable and unacceptable outputs.</li>
+                                <li><strong>Visual structure:</strong> Use headings and lists so priorities and steps are visually distinct.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Instructions Copyable Block -->
+                        <div>
+                            <div class="flex justify-between items-end mb-3">
+                                <label class="text-sm font-bold text-slate-900">Final Instructions Content</label>
+                                <button onclick="copyText('gpt-instr')" class="text-blue-600 text-xs font-bold hover:underline mb-1 whitespace-nowrap">Copy Instructions</button>
                             </div>
                             <div class="code-block rounded-2xl p-4 border border-slate-200 bg-white text-sm text-slate-800 leading-relaxed max-h-80 overflow-y-auto relative">
-<pre id="gpt-instr" class="">You are an ADA digital accessibility information and coaching assistant.
+                                <pre id="gpt-instr" class="">You are an ADA digital accessibility information and coaching assistant.
 
 Your role is to help users understand and apply ADA digital accessibility requirements using plain, non-technical language.
 
@@ -459,7 +530,8 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="info-marker">i</div>
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-blue-900 mb-4">Conversation Starters (No Action Needed)</h3>
-                        <p class="text-lg text-slate-600 mb-4 leading-relaxed">Conversation starters appear as suggestions when users first open your assistant. For this exercise, leave this section blank. The assistant will generate its own context-aware suggestions which you can tweak later.</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Example prompts shown when someone opens the GPT. These help users understand what they can ask and how to interact with it. Include a few realistic, high-value prompts that reflect the GPT’s intended use.</p>
+                        <p class="text-lg text-slate-600 mb-4 leading-relaxed">For this exercise, leave this section blank. The assistant will generate its own context-aware suggestions which you can tweak later.</p>
                     </div>
                 </div>
             </div>
@@ -470,6 +542,23 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="step-number-circle bg-teal-600 text-white">4</div>
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Step 4 – Add Knowledge Source</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Knowledge lets your GPT use information from files you upload. It works best for reference material you want the GPT to draw from when answering questions, such as documentation, internal content, or guides.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                                <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">File Limits</h4>
+                                <p class="text-sm text-slate-600">You can attach up to <strong>20 files</strong> to a GPT. Each file can be up to <strong>512 MB</strong>. GPTs support most common document, spreadsheet, and text types.</p>
+                            </div>
+                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                                <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Best Practices</h4>
+                                <ul class="text-sm text-slate-600 space-y-1 list-disc pl-5">
+                                    <li>Use for reference material, not rules or behavior.</li>
+                                    <li>Prefer clear, text-forward files when possible.</li>
+                                    <li>Specify citation formats in your instructions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
                         <p class="text-lg text-slate-600 mb-8 leading-relaxed">Accepted file types: .pdf, .docx, .xlsx, .pptx, .csv, .txt, .md, .rtf, .json, .html</p>
                         <a href="https://drive.google.com/file/d/1U6CYL1HC4u6vjUEkA5PlKid_zJ8yTbYT/view?usp=sharing" target="_blank" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex items-center shadow-sm hover:border-blue-300:border-blue-500 transition group">
                             <div class="mr-5 flex-shrink-0">
@@ -491,6 +580,7 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="info-marker">i</div>
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-blue-900 mb-4">Recommended Model (No Action Needed)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Setting a recommended model helps guide users toward the best option for the GPT’s task. Note that users can still switch to a different model if additional models are available to them.</p>
                         <p class="text-lg text-slate-600 mb-4 leading-relaxed">Platforms use the most capable available model by default. We recommend leaving this as <strong>"No Recommended Model"</strong> so your assistant stays updated automatically.</p>
                     </div>
                 </div>
@@ -502,6 +592,7 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="step-number-circle bg-teal-600 text-white">5</div>
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-4">Step 5 – Capabilities</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-4">Capabilities extend what your GPT can do. You can enable built-in features and connect external tools from this section. Availability depends on your account, workspace setup, and region.</p>
                         <p class="text-lg text-slate-600 mb-8 leading-relaxed">For this assistant, it will only be utilizing the documents uploaded in the knowledge base and will not be searching the web. To ensure accuracy based solely on provided sources, it is important to turn off web search capabilities.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
@@ -513,11 +604,11 @@ KNOWLEDGE SOURCE PRIORITY:
                                 <div class="flex items-center space-x-3 opacity-60"><div id="cap-code" class="capability-toggle w-5 h-5 border-2 border-slate-200 rounded flex items-center justify-center text-white"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"/></svg></div><span class="text-sm font-medium text-slate-900 leading-tight">Code Interpreter & Data Analysis</span></div>
                             </div>
                             <div class="space-y-2">
-                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Web Search</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Allows browsing the internet for current or external info.</div></details>
-                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Apps</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Enables integration with specific third-party applications.</div></details>
-                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Canvas</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Enables editing longer content in a dedicated workspace.</div></details>
-                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Image Generation</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Allows creating images from text prompts.</div></details>
-                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Code Interpreter</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Enables data analysis and code execution.</div></details>
+                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Web Search</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Retrieve up-to-date information from the web.</div></details>
+                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Apps</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Use external tools and services that users have connected. (Beta)</div></details>
+                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Canvas</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Draft, edit, and refine longer or structured content.</div></details>
+                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Image Generation</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Create images from text prompts.</div></details>
+                                <details class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden group"><summary class="flex items-center justify-between p-3 cursor-pointer list-none"><span class="text-xs font-bold text-slate-700">Code Interpreter</span><svg class="w-4 h-4 text-slate-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></summary><div class="px-3 pb-3 text-xs text-slate-600">Run calculations, analyze data, and generate charts.</div></details>
                             </div>
                         </div>
                     </div>
@@ -530,7 +621,8 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="info-marker">i</div>
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-blue-900 mb-4">Actions (No Action Needed)</h3>
-                        <p class="text-lg text-slate-600 mb-4 leading-relaxed">Actions connect to external systems through APIs. For this specific assistant, external actions are not required.</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Actions allow your GPT to connect to external APIs that you define. Use actions when your GPT needs to retrieve data or take actions in external systems, such as calling APIs or triggering workflows.</p>
+                        <p class="text-lg text-slate-600 mb-4 leading-relaxed">Actions connect to external systems through APIs. For this specific assistant, external actions are not required. Note: A GPT can use either apps or actions, but not both at the same time.</p>
                     </div>
                 </div>
             </div>
@@ -567,6 +659,8 @@ KNOWLEDGE SOURCE PRIORITY:
                     <div class="step-number-circle bg-teal-600 text-white">8</div>
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-6">Step 8 – Test Your Assistant</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Before sharing or publishing to the GPT Store, use the built-in Preview to try real prompts, check tone and accuracy, and refine the setup.</p>
+                        <p class="text-sm font-semibold text-blue-600 mb-6 italic">Pro Tip: Before adding more tools, tighten instructions and add examples. This often fixes issues faster than adding features.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Q1 -->
                             <button onclick="copyValue('What can you help me with?')" class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left hover:border-blue-300:border-blue-500 group transition-colors">
@@ -665,14 +759,172 @@ KNOWLEDGE SOURCE PRIORITY:
             </div>
         </div>
 
+            </div>
         </main>
+
+    <!-- Decision Wizard Modal -->
+    <div id="wizard-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeWizardModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in duration-300">
+            <!-- Close Icon -->
+            <button onclick="closeWizardModal()" class="absolute right-6 top-6 text-slate-400 hover:text-slate-600 transition-colors z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+
+            <div class="p-8 md:p-10">
+                <div id="modal-wizard-content">
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-1">Platform Decision Wizard</h2>
+                        <p class="text-slate-500 text-sm italic">Let's find the best tool for your project...</p>
+                    </div>
+
+                    <div class="flex gap-2 mb-8" id="meter-container">
+                        <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div id="m1" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                        </div>
+                        <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div id="m2" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                        </div>
+                        <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div id="m3" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                        </div>
+                    </div>
+
+                    <div id="wizard-questions">
+                        <!-- Q1 -->
+                        <div class="question-container block" id="q1">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 1 of 3</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Do you want your assistant to use live Google Docs or Sheets that update automatically?</h3>
+                            <p class="text-sm text-slate-500 mb-6 font-medium text-blue-600">Pro Tip: Manual uploads (Custom GPT) are simpler to manage unless your data changes daily.</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" onclick="handleAnswer('none')">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                                        <i data-lucide="file-up" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900 text-lg leading-tight">No, Manually</span>
+                                        <span class="block text-sm text-slate-500 mt-1 leading-tight">I will upload files as needed</span>
+                                    </div>
+                                </button>
+                                <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" onclick="handleAnswer('gem')">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                                        <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900 text-lg leading-tight">Yes, Live Sync</span>
+                                        <span class="block text-sm text-slate-500 mt-1 leading-tight">Link directly to Google Drive</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="question-container hidden" id="q2">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 2 of 3</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-6">Do you want your assistant to be able to search the internet for current events?</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" onclick="handleAnswer('gpt')">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                                        <i data-lucide="globe" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900 text-lg">Yes</span>
+                                        <span class="block text-sm text-slate-500 mt-0.5">Browse the web</span>
+                                    </div>
+                                </button>
+                                <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" onclick="handleAnswer('none')">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-slate-100 group-hover:text-slate-600 transition-colors">
+                                        <i data-lucide="lock" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900 text-lg">No</span>
+                                        <span class="block text-sm text-slate-500 mt-0.5">Use my documents only</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="question-container hidden" id="q3">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 3 of 3</div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-6">Will you be doing heavy research in NotebookLM for this project?</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" onclick="handleAnswer('gem')">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors">
+                                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900 text-lg leading-tight">Yes</span>
+                                        <span class="block text-sm text-slate-500 mt-1 leading-tight">Integrate with NotebookLM</span>
+                                    </div>
+                                </button>
+                                <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" onclick="handleAnswer('none')">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-slate-100 group-hover:text-slate-600 transition-colors">
+                                        <i data-lucide="circle-slash" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900 text-lg leading-tight">No</span>
+                                        <span class="block text-sm text-slate-500 mt-1 leading-tight">Just a standalone tool</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div id="wizard-result" class="hidden">
+                        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 mt-4 text-center">
+                            <h3 id="result-title" class="text-3xl font-bold text-slate-900 mb-3"></h3>
+                            <p id="result-desc" class="text-slate-600 text-lg leading-relaxed mb-8"></p>
+                            
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <a href="#" id="result-btn" class="inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md">
+                                    <!-- Label injected -->
+                                </a>
+                                <button onclick="closeWizardModal()" class="text-slate-500 font-bold hover:text-slate-700 px-4 py-2 transition-colors">Dismiss</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-8">
+                        <button id="wizard-back-btn" onclick="handleBack()" class="invisible bg-slate-100 hover:bg-slate-200 text-slate-900 px-6 py-2.5 rounded-xl font-bold transition-colors">
+                            Back
+                        </button>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 3 of 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div id="toast" class="notification">Copied to clipboard!</div>
 
     <script>
+        function togglePlatform(platform) {
+            const body = document.body;
+            const gptContent = document.getElementById('content-gpt');
+            const gemContent = document.getElementById('content-gem');
+            const gptBtn = document.getElementById('nav-gpt');
+            const gemBtn = document.getElementById('nav-gem');
+            const activeLabel = document.getElementById('active-platform-name');
+            const sidebarLogo = document.getElementById('sidebar-logo');
 
-
-         else {
+            if (platform === 'gpt') {
+                gptContent.style.display = 'block';
+                gemContent.style.display = 'none';
+                gptBtn.classList.add('active');
+                gemBtn.classList.remove('active');
+                activeLabel.innerText = "Custom GPT";
+                activeLabel.style.color = '#2563eb';
+                body.style.backgroundColor = '#ffffff';
+            } else {
                 gptContent.style.display = 'none';
                 gemContent.style.display = 'block';
                 gptBtn.classList.remove('active');
@@ -724,8 +976,141 @@ KNOWLEDGE SOURCE PRIORITY:
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 2000);
         }
+
+        // --- WIZARD MODAL LOGIC ---
+        let wizardStep = 0;
+        let wizardGptCount = 0;
+        let wizardGemCount = 0;
+        let wizardHistory = [];
+
+        function openWizardModal() {
+            const modal = document.getElementById('wizard-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            resetWizard();
+            lucide.createIcons();
+        }
+
+        function closeWizardModal() {
+            const modal = document.getElementById('wizard-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function resetWizard() {
+            wizardStep = 0;
+            wizardGptCount = 0;
+            wizardGemCount = 0;
+            wizardHistory = [];
+            
+            document.querySelectorAll('.question-container').forEach((el, idx) => {
+                el.classList.toggle('block', idx === 0);
+                el.classList.toggle('hidden', idx !== 0);
+            });
+            
+            document.getElementById('wizard-result').classList.add('hidden');
+            document.getElementById('wizard-questions').classList.remove('hidden');
+            document.getElementById('meter-container').classList.remove('hidden');
+            document.getElementById('wizard-back-btn').classList.add('invisible');
+            updateWizardMeter();
+        }
+
+        function updateWizardMeter() {
+            document.getElementById('m1').style.width = wizardStep >= 0 ? '100%' : '0%';
+            document.getElementById('m2').style.width = wizardStep >= 1 ? '100%' : '0%';
+            document.getElementById('m3').style.width = wizardStep >= 2 ? '100%' : '0%';
+        }
+
+        function handleAnswer(val) {
+            wizardHistory[wizardStep] = val;
+            if(val === 'gpt') wizardGptCount++;
+            if(val === 'gem') wizardGemCount++;
+
+            const questions = document.querySelectorAll('.question-container');
+            questions[wizardStep].classList.add('hidden');
+            questions[wizardStep].classList.remove('block');
+            
+            wizardStep++;
+
+            if(wizardStep < questions.length) {
+                questions[wizardStep].classList.remove('hidden');
+                questions[wizardStep].classList.add('block');
+                document.getElementById('wizard-back-btn').classList.remove('invisible');
+                updateWizardMeter();
+            } else {
+                showWizardResult();
+            }
+        }
+
+        function handleBack() {
+            if(wizardStep === 0) return;
+            
+            const questions = document.querySelectorAll('.question-container');
+            if(wizardStep === questions.length) {
+                document.getElementById('wizard-result').classList.add('hidden');
+                document.getElementById('wizard-questions').classList.remove('hidden');
+                document.getElementById('meter-container').classList.remove('hidden');
+            } else {
+                questions[wizardStep].classList.add('hidden');
+                questions[wizardStep].classList.remove('block');
+            }
+
+            wizardStep--;
+            const lastVal = wizardHistory[wizardStep];
+            if(lastVal === 'gpt') wizardGptCount--;
+            if(lastVal === 'gem') wizardGemCount--;
+
+            questions[wizardStep].classList.remove('hidden');
+            questions[wizardStep].classList.add('block');
+
+            if(wizardStep === 0) {
+                document.getElementById('wizard-back-btn').classList.add('invisible');
+            }
+            updateWizardMeter();
+        }
+
+        function showWizardResult() {
+            document.getElementById('meter-container').classList.add('hidden');
+            document.getElementById('wizard-questions').classList.add('hidden');
+            
+            const resultTitle = document.getElementById('result-title');
+            const resultDesc = document.getElementById('result-desc');
+            const resultBtn = document.getElementById('result-btn');
+            
+            let title, desc, btnLabel, btnClass, btnHref, btnAction;
+            
+            // Logic to determine winner
+            const winner = wizardGemCount > wizardGptCount ? 'gem' : 'gpt';
+            const isCurrentPageGpt = window.location.pathname.includes('create-gpt.html');
+            
+            if(winner === 'gem') {
+                title = 'Recommended: Google Gem';
+                desc = 'Based on your needs for live Google Drive integration and research-heavy workflows, Gemini Gems are the perfect fit.';
+                btnLabel = isCurrentPageGpt ? 'Switch to Gemini Gem Guide' : 'Perfect, let\'s keep building!';
+                btnHref = isCurrentPageGpt ? 'create-gem.html' : '#';
+                btnAction = isCurrentPageGpt ? null : closeWizardModal;
+                btnClass = 'bg-gradient-to-r from-purple-700 to-blue-600 hover:from-purple-800 hover:to-blue-700 shadow-purple-200';
+            } else {
+                title = 'Recommended: Custom GPT';
+                desc = 'Based on your preference for static knowledge files and web search control, a Custom GPT is the recommended choice.';
+                btnLabel = !isCurrentPageGpt ? 'Switch to Custom GPT Guide' : 'Perfect, let\'s keep building!';
+                btnHref = !isCurrentPageGpt ? 'create-gpt.html' : '#';
+                btnAction = !isCurrentPageGpt ? null : closeWizardModal;
+                btnClass = 'bg-blue-600 hover:bg-blue-700 shadow-blue-200';
+            }
+
+            resultTitle.innerText = title;
+            resultDesc.innerText = desc;
+            resultBtn.innerText = btnLabel;
+            resultBtn.href = btnHref;
+            resultBtn.onclick = btnAction;
+            resultBtn.className = `inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md ${btnClass}`;
+            
+            document.getElementById('wizard-result').classList.remove('hidden');
+            document.getElementById('wizard-back-btn').classList.remove('invisible');
+        }
+
+        lucide.createIcons();
     </script>
-        </div>
-    </div>
 </body>
 </html>

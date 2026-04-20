@@ -11,6 +11,14 @@
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
         .feature-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .feature-card:hover { transform: translateY(-2px); border-color: #3b82f6; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-container.block {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
     </style>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -273,7 +281,7 @@
 
 
             <!-- Decision Wizard -->
-            <div class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
+            <div id="decision-wizard" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
                 <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h2 class="text-2xl font-bold text-slate-900 mb-1">Decision Wizard</h2>
@@ -298,16 +306,26 @@
                     <div class="question-container block" id="q1">
                         <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 1 of 3</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Do you want your assistant to use live Google Docs or Sheets that update automatically?</h3>
-                        <p class="text-sm text-slate-500 mb-6 font-medium">Recommended: choose manual uploads unless your documents change frequently.</p>
+                        <p class="text-sm text-slate-500 mb-6 font-medium text-blue-600">Pro Tip: Manual uploads (Custom GPT) are simpler to manage unless your data changes daily.</p>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button class="answer-btn text-left p-5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition bg-white" data-val="none">
-                                <span class="block font-bold text-slate-900">No</span>
-                                <span class="block text-sm text-slate-500 mt-1">I will upload files manually (recommended)</span>
+                            <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" data-val="none">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                                    <i data-lucide="file-up" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-900 text-lg leading-tight">No, Manually</span>
+                                    <span class="block text-sm text-slate-500 mt-1 leading-tight">I will upload files as needed (Recommended)</span>
+                                </div>
                             </button>
-                            <button class="answer-btn text-left p-5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition bg-white" data-val="gem">
-                                <span class="block font-bold text-slate-900">Yes</span>
-                                <span class="block text-sm text-slate-500 mt-1">I want it to pull from live Google files</span>
+                            <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" data-val="gem">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                                    <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-900 text-lg leading-tight">Yes, Live Sync</span>
+                                    <span class="block text-sm text-slate-500 mt-1 leading-tight">Link directly to my Google Drive files</span>
+                                </div>
                             </button>
                         </div>
                     </div>
@@ -315,16 +333,26 @@
                     <!-- Q2 -->
                     <div class="question-container hidden" id="q2">
                         <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 2 of 3</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-6">Do you want your assistant to be able to search the internet, or only use the documents you upload?</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Do you want your assistant to be able to search the internet for current events?</h3>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button class="answer-btn text-left p-5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition bg-white" data-val="gpt">
-                                <span class="block font-bold text-slate-900">Yes</span>
-                                <span class="block text-sm text-slate-500 mt-1">It should be able to search the web</span>
+                            <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" data-val="gpt">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                                    <i data-lucide="globe" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-900 text-lg">Yes</span>
+                                    <span class="block text-sm text-slate-500 mt-0.5">I want it to browse the web</span>
+                                </div>
                             </button>
-                            <button class="answer-btn text-left p-5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition bg-white" data-val="none">
-                                <span class="block font-bold text-slate-900">No</span>
-                                <span class="block text-sm text-slate-500 mt-1">It should only use my uploaded documents</span>
+                            <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" data-val="none">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-slate-100 group-hover:text-slate-600 transition-colors">
+                                    <i data-lucide="lock" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-900 text-lg">No</span>
+                                    <span class="block text-sm text-slate-500 mt-0.5">Only use my specific documents</span>
+                                </div>
                             </button>
                         </div>
                     </div>
@@ -332,14 +360,26 @@
                     <!-- Q3 -->
                     <div class="question-container hidden" id="q3">
                         <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Step 3 of 3</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-6">Do you want it connected to a NotebookLM notebook?</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Will you be doing heavy research in NotebookLM for this project?</h3>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button class="answer-btn text-center p-5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition bg-white" data-val="gem">
-                                <span class="block font-bold text-slate-900 text-lg">Yes</span>
+                            <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" data-val="gem">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors">
+                                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-900 text-lg leading-tight">Yes, NotebookLM</span>
+                                    <span class="block text-sm text-slate-500 mt-1 leading-tight">I plan to integrate with my notebooks</span>
+                                </div>
                             </button>
-                            <button class="answer-btn text-center p-5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition bg-white" data-val="none">
-                                <span class="block font-bold text-slate-900 text-lg">No</span>
+                            <button class="answer-btn text-left p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-lg transition-all bg-white group flex gap-4 items-center" data-val="none">
+                                <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-slate-100 group-hover:text-slate-600 transition-colors">
+                                    <i data-lucide="circle-slash" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-900 text-lg leading-tight">No Integration</span>
+                                    <span class="block text-sm text-slate-500 mt-1 leading-tight">Just a standalone assistant</span>
+                                </div>
                             </button>
                         </div>
                     </div>
@@ -390,28 +430,33 @@ function showResult(){
     let description = '';
     let buttonLabel = '';
     let btnClass = '';
+    let btnHref = '';
 
     if(gemCount > gptCount){
         title = 'Use a Google Gem';
         description = 'Based on your answers, a Google Gem is the best fit because you are looking to connect to live Google tools or workflows that update automatically.';
         buttonLabel = 'Build a Google Gem';
         btnClass = 'bg-gradient-to-r from-purple-700 to-blue-600 hover:from-purple-800 hover:to-blue-700 shadow-purple-200';
+        btnHref = 'create-gem.html';
     } else if(gptCount > gemCount){
         title = 'Use a Custom GPT';
         description = 'Based on your answers, a Custom GPT is the best fit because you want more control over how your assistant works and what information it uses.';
         buttonLabel = 'Build a Custom GPT';
         btnClass = 'bg-blue-600 hover:bg-blue-700 shadow-blue-200';
+        btnHref = 'create-gpt.html';
     } else {
         title = 'Use a Custom GPT (Recommended)';
         description = 'Based on what you are trying to build, either tool could work. However, a Custom GPT is recommended because it is simpler to start with, easier to control, and a better first step for building your initial AI assistant.';
         buttonLabel = 'Build a Custom GPT';
         btnClass = 'bg-blue-600 hover:bg-blue-700 shadow-blue-200';
+        btnHref = 'create-gpt.html';
     }
 
     document.getElementById('result-title').innerText = title;
     document.getElementById('result-desc').innerText = description;
     
     document.getElementById('result-btn').innerText = buttonLabel;
+    document.getElementById('result-btn').href = btnHref;
     document.getElementById('result-btn').className = `inline-flex items-center gap-2 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md ${btnClass}`;
 
     resultContainer.classList.remove('hidden');
