@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Version: 1.0.6 - Cache Buster -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey to AI Literacy - District AI</title>
+    <link rel="icon"
+        href="https://aguafriaorg.finalsite.com/fs/resource-manager/view/75cf7d4e-3c4e-471c-8714-12a894d02f02">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Featured section expand/collapse animation */
+        .featured-grid-wrapper {
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: -24px;
+            padding: 24px;
+        }
+
+        .featured-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2563eb;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .featured-toggle-btn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+        }
+
+        .featured-toggle-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .featured-toggle-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        /* Description Tooltip */
+        #description-tooltip {
+            position: fixed;
+            z-index: 1000;
+            background: white;
+            color: #475569;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 320px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateY(10px) scale(0.95);
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        #description-tooltip.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .description-hover {
+            cursor: pointer;
+            text-decoration: underline decoration-dashed decoration-slate-200 underline-offset-4;
+            transition: decoration-color 0.2s ease;
+        }
+
+        .description-hover:hover {
+            decoration-color: #3b82f6;
+        }
+    
+        /* Custom Animation for the Progress Bar */
+        @keyframes loadProgress {
+            from { width: 0; }
+            to { width: 49%; }
+        }
+        .animate-progress {
+            animation: loadProgress 1.5s ease-out forwards;
+        }
+
+        /* Card Hover Effects */
+        .phase-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .phase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .connector-arrow {
+            position: absolute;
+            right: -24px;
+            top: 40%;
+            z-index: 50;
+            color: #94a3b8;
+            font-size: 1.5rem;
+        }
+</style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        district: {
+                            blue: '#0F172A',
+                            lightBlue: '#334155',
+                            red: '#DC2626',
+                            accent: '#991B1B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 min-h-screen transition-colors duration-300">
+
+    <div class="flex flex-col md:flex-row md:items-start min-h-screen max-w-[1400px] mx-auto">
+        <!-- Dashboard Sidebar -->
+        <aside class="w-full md:w-64 lg:w-72 md:shrink-0 border-b md:border-b-0 md:border-r border-slate-200 bg-white p-3 md:p-4 lg:p-5 flex flex-col md:sticky md:top-0 md:h-screen md:overflow-y-auto z-10 transition-all">
+            <div class="mb-4">
+                <!-- Branding / Logo Area -->
+                <a href="index.html" class="block transition-all hover:opacity-90">
+                    <img id="sidebar-logo" src="images/sidebar-logo.png" alt="District AI" class="w-full h-auto rounded-xl shadow-sm">
+                </a>
+            </div>
+
+
+            <nav class="flex flex-col gap-3">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 hidden md:block mb-1">Navigation</p>
+                
+                <!-- Assistant Library (Active) -->
+                <a href="index.html"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all hover:-translate-y-0.5 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-blue-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span class="text-sm">Assistant Library</span>
+                </a>
+
+                <!-- Prompt Library -->
+                <a href="prompts.html"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-blue-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span class="text-sm">Prompt Library</span>
+                </a>
+
+                <!-- Journey to AI Literacy -->
+                <a href="literacy.html"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-emerald-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                    </svg>
+                    <span class="text-sm">Journey to AI Literacy</span>
+                </a>
+
+                <!-- Create My Own -->
+                <a href="guide.html"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-teal-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span class="text-sm">Create my own</span>
+                </a>
+
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 hidden md:block mb-1 mt-6">Resources</p>
+
+                <!-- What is an AI Assistant? -->
+                <a href="whatis.html"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-indigo-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <span class="text-sm">What is an AI Assistant?</span>
+                </a>
+
+                <!-- Custom GPT vs Gem -->
+                <a href="compare.html"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-indigo-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
+                    </svg>
+                    <span class="text-sm">Custom GPT vs Gem</span>
+                </a>
+                <!-- Create New GPT -->
+                <a href="create-gpt.html"
+                    class="flex items-center gap-3 bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-blue-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span class="text-sm">Create new GPT</span>
+                </a>
+
+                <!-- Create New Gem -->
+                <a href="create-gem.html"
+                    class="flex items-center gap-3 bg-gradient-to-r from-purple-700 to-blue-600 hover:from-purple-800 hover:to-blue-700 text-white px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-blue-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span class="text-sm">Create new Gem</span>
+                </a>
+
+                <!-- AI Resource Hub -->
+                <a href="https://www.aguafria.org/aihub" target="_blank"
+                    class="flex items-center gap-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-3 rounded-xl font-bold shadow-sm transition-all group hover:-translate-y-0.5 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 text-red-600 opacity-90 group-hover:scale-110 transition-transform">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <span class="text-sm">AI Resource Hub</span>
+                </a>
+            </nav>
+
+            
+            <div class="mt-auto hidden md:block pt-8 text-xs text-slate-400">
+                <p>Browse, share, and access specialized AI tools developed for and by District staff.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="app" class="flex-grow max-w-6xl overflow-x-hidden relative w-full lg:px-6">
+
+        <!-- Hero Section -->
+        <header class="bg-district-blue text-white pt-12 pb-20 mt-8 relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8">
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-district-red opacity-10 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-blue-500 opacity-10 blur-3xl"></div>
+
+            <div class="relative z-10 text-center px-4">
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-800/50 border border-blue-700 text-blue-100 text-xs font-semibold tracking-wider mb-4">FALL '25 UPDATE</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+                    The Journey to <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">AI Literacy</span>
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto">
+                    Moving from basic awareness to innovation leadership.
+                </p>
+            </div>
+        </header>
+
+        <!-- Stats Dashboard -->
+        <section id="stats" class="relative -mt-10 mb-16 mx-4 sm:mx-6 lg:mx-8 z-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Stat 1 -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-district-red flex flex-col items-center text-center">
+                    <div class="text-5xl font-extrabold text-district-blue mb-2">70%</div>
+                    <p class="text-gray-600 font-medium text-sm md:text-base">Staff using AI <br>weekly or more</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-district-blue flex flex-col items-center text-center">
+                    <div class="text-5xl font-extrabold text-district-blue mb-2">70%</div>
+                    <p class="text-gray-600 font-medium text-sm md:text-base">Reporting moderate to<br>significant productivity gains</p>
+                </div>
+
+                <!-- Stat 3 (The Goal) -->
+                <div class="bg-district-blue p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-blue-400 flex flex-col justify-center text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 opacity-10 text-9xl -mr-8 -mt-8 rotate-12">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="text-sm uppercase tracking-wide text-blue-300 mb-1">Current Status</h3>
+                    <div class="flex items-end gap-2 mb-3 z-10">
+                        <span class="text-5xl font-bold">49%</span>
+                        <span class="text-blue-200 mb-2 font-medium">at Phase 3+</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-3 mb-2 relative z-10">
+                        <div class="absolute top-0 bottom-0 w-0.5 bg-white z-20 h-5 -mt-1" style="left: 75%"></div>
+                        <div class="absolute -top-6 text-xs font-bold text-white z-20" style="left: 75%; transform: translateX(-50%);">GOAL: 75%</div>
+                        <div class="bg-district-red h-3 rounded-full animate-progress relative z-10"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The 5 Phases -->
+        <section class="mb-24 mx-4 sm:mx-6 lg:mx-8 relative">
+            <div class="mb-8 text-center xl:text-left">
+                <h2 class="text-3xl font-bold text-district-blue">The Path of Progression</h2>
+            </div>
+
+            <div class="w-full pb-12 pt-6">
+                <!-- Flex Container to prevent cut-offs -->
+                <div class="flex flex-col xl:flex-row gap-8 xl:gap-4 w-full justify-between items-stretch">
+                    
+                    <!-- Phase 1 -->
+                    <div class="phase-card relative flex-1 bg-white rounded-xl border-t-8 border-district-blue shadow-lg p-5 flex flex-col min-w-[180px]">
+                        <div class="connector-arrow hidden xl:block z-50">
+                             <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 10C5 10 15 10 22 10" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            </svg>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-50 text-district-blue rounded-full flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Phase 1</h3>
+                        <h4 class="text-lg font-bold text-district-blue mb-3">Awareness</h4>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">Recognizing AI's existence & potential impact. Understanding basic terms.</p>
+                        <div class="w-full bg-gray-100 rounded-full h-1.5 mt-auto"><div class="bg-district-blue w-1/5 h-1.5 rounded-full"></div></div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="phase-card relative flex-1 bg-white rounded-xl border-t-8 border-blue-700 shadow-lg p-5 flex flex-col min-w-[180px]">
+                        <div class="connector-arrow hidden xl:block z-50">
+                             <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 10C5 10 15 10 22 10" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            </svg>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-50 text-blue-700 rounded-full flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-hand-pointer"></i></div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Phase 2</h3>
+                        <h4 class="text-lg font-bold text-district-blue mb-3">Basic Usage</h4>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">Experimenting with simple AI tools & applications. Learning prompts.</p>
+                        <div class="w-full bg-gray-100 rounded-full h-1.5 mt-auto"><div class="bg-blue-700 w-2/5 h-1.5 rounded-full"></div></div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="phase-card relative flex-1 bg-blue-50 rounded-xl border-t-8 border-yellow-500 shadow-xl p-5 flex flex-col min-w-[180px] xl:-mt-2 xl:mb-2 border-2 border-x-blue-200 border-b-blue-200 z-10 scale-100 xl:scale-105">
+                        <div class="connector-arrow hidden xl:block z-50" style="right: -24px;">
+                             <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 10C5 10 15 10 22 10" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            </svg>
+                        </div>
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-sm whitespace-nowrap z-20">Target Goal</div>
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-arrows-spin"></i></div>
+                        <h3 class="text-xs font-bold text-yellow-600 uppercase tracking-widest mb-1">Phase 3</h3>
+                        <h4 class="text-lg font-bold text-district-blue mb-3">Routine Integration</h4>
+                        <p class="text-sm text-gray-700 mb-4 flex-grow font-medium">Incorporating AI into daily tasks & workflows. Increasing efficiency.</p>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-auto"><div class="bg-yellow-500 w-3/5 h-1.5 rounded-full"></div></div>
+                    </div>
+
+                    <!-- Phase 4 -->
+                    <div class="phase-card relative flex-1 bg-white rounded-xl border-t-8 border-red-400 shadow-lg p-5 flex flex-col min-w-[180px]">
+                        <div class="connector-arrow hidden xl:block z-50">
+                             <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 10C5 10 15 10 22 10" stroke="#CBD5E1" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            </svg>
+                        </div>
+                        <div class="w-12 h-12 bg-red-50 text-red-400 rounded-full flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-layer-group"></i></div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Phase 4</h3>
+                        <h4 class="text-lg font-bold text-district-blue mb-3">Advanced App</h4>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">Customizing AI solutions, solving complex problems. Analyzing data.</p>
+                        <div class="w-full bg-gray-100 rounded-full h-1.5 mt-auto"><div class="bg-red-400 w-4/5 h-1.5 rounded-full"></div></div>
+                    </div>
+
+                    <!-- Phase 5 -->
+                    <div class="phase-card relative flex-1 bg-white rounded-xl border-t-8 border-district-red shadow-lg p-5 flex flex-col min-w-[180px]">
+                        <div class="w-12 h-12 bg-red-50 text-district-red rounded-full flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-rocket"></i></div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Phase 5</h3>
+                        <h4 class="text-lg font-bold text-district-blue mb-3">Leadership</h4>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow">Creating new AI strategies, driving organizational change & ethical use.</p>
+                        <div class="w-full bg-gray-100 rounded-full h-1.5 mt-auto"><div class="bg-district-red w-full h-1.5 rounded-full"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The "Progression & Growth" Bottom Arrow SVG -->
+            <div class="mt-8 relative h-20 w-full hidden md:block">
+                <svg viewBox="0 0 1200 100" class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="growthGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#0F172A;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#DC2626;stop-opacity:1" />
+                        </linearGradient>
+                         <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#CBD5E1" />
+                        </marker>
+                    </defs>
+                    <path d="M 20,60 Q 600,105 1180,20" stroke="url(#growthGradient)" stroke-width="8" fill="none" stroke-linecap="round" />
+                    <path d="M 1180,20 L 1150,35 L 1155,20 L 1150,5 Z" fill="#DC2626" />
+                </svg>
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-50 px-4 text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">
+                    Progression & Growth
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-slate-400 text-sm pb-8 border-t border-slate-200 mx-8 pt-8">
+            <p>© 2025 District AI Assistant Library <span class="opacity-30">| v1.0.6</span></p>
+            <p class="mt-1">For updates, please contact mriley@aguafria.org.</p>
+        </footer>
+
+</main>
+</div>
+</body>
+</html>
