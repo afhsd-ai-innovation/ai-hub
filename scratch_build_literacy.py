@@ -44,7 +44,7 @@ style_end = pre_main.find('</style>')
 pre_main = pre_main[:style_end] + style_block + pre_main[style_end:]
 
 # update title
-pre_main = pre_main.replace('<title>District AI Assistant Library</title>', '<title>Journey to AI Literacy - District AI</title>')
+pre_main = pre_main.replace('<title>THINK AI Assistant Library</title>', '<title>Journey to AI Literacy - THINK AI</title>')
 
 # add Font Awesome
 head_end = pre_main.find('</head>')
@@ -235,7 +235,7 @@ literacy_content = """
         
         <!-- Footer -->
         <footer class="mt-12 text-center text-slate-400 text-sm pb-8 border-t border-slate-200 mx-8 pt-8">
-            <p>© 2025 District AI Assistant Library <span class="opacity-30">| v1.0.6</span></p>
+            <p>© 2025 THINK AI Assistant Library <span class="opacity-30">| v1.0.6</span></p>
             <p class="mt-1">For updates, please contact mriley@aguafria.org.</p>
         </footer>
 """
