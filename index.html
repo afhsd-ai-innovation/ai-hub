@@ -495,7 +495,7 @@
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                     </a>
-                    <button onclick="loadAssistantsJSONP()" title="Refresh data"
+                    <button onclick="loadAssistants()" title="Refresh data"
                         class="hover:text-blue-600 transition-colors flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
@@ -1151,45 +1151,39 @@
 
         function resetFilters() { searchQuery = ""; selectedCategory = "All"; selectedDepartment = "All"; searchInput.value = ""; departmentFilter.value = "All"; window.location.hash = ""; updateFiltersUI(); render(); }
 
-        function loadAssistantsJSONP() {
-            resultsCount.textContent = "Loading assistants…";
-            const cbName = "jsonp_cb_" + Math.random().toString(36).slice(2);
-            const script = document.createElement("script");
-            const cleanup = () => { try { delete window[cbName]; } catch { } script.remove(); };
-            window[cbName] = (payload) => {
-                try {
-                    if (!payload || !payload.ok) throw new Error(payload ? payload.error || "API Error" : "No payload");
-                    assistants = (payload.assistants || []).map(a => ({
-                        name: a.name || "",
-                        status: a.status || "",
-                        type: a.type || "",
-                        department: a.department || "General",
-                        category: a.category || "",
-                        url: a.url || "",
-                        description: a.description || "",
-                        instructions: a.instructions || ""
-                    }));
-                    updateFiltersUI(); applyHashFilter();
-                    const now = new Date();
-                    const upd = document.getElementById('last-updated');
-                    if (upd) upd.textContent = 'Last updated: ' + (now.getMonth() + 1) + '.' + now.getDate() + ' ' + now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-                } catch (e) {
-                    console.error("JSONP Callback failed:", e);
-                    assistants = []; updateFiltersUI(); render();
-                    resultsCount.textContent = "Data load failed.";
-                    if (noResultsMsg) noResultsMsg.textContent = "Trouble loading data. Please refresh or try again later.";
-                } finally { cleanup(); }
-            };
-            script.src = `${DATA_API_URL}?action=assistants&tab=${encodeURIComponent(SHEET_TAB_NAME)}&callback=${encodeURIComponent(cbName)}`;
-            script.onerror = () => {
-                console.error("JSONP script load error");
-                assistants = []; updateFiltersUI(); render(); cleanup();
-                resultsCount.textContent = "Connection error.";
-            };
-            document.head.appendChild(script);
+        async function loadAssistants() {
+            resultsCount.textContent = "Loading assistants\u2026";
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const response = await fetch(`${DATA_API_URL}?action=assistants`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+                const payload = await response.json();
+                if (!payload || !payload.ok) throw new Error(payload ? payload.error || "API Error" : "No payload");
+                assistants = (payload.assistants || []).map(a => ({
+                    name: a.name || "",
+                    status: a.status || "",
+                    type: a.type || "",
+                    department: a.department || "General",
+                    category: a.category || "",
+                    url: a.url || "",
+                    description: a.description || "",
+                    instructions: a.instructions || ""
+                }));
+                updateFiltersUI(); applyHashFilter();
+                const now = new Date();
+                const upd = document.getElementById('last-updated');
+                if (upd) upd.textContent = 'Last updated: ' + (now.getMonth() + 1) + '.' + now.getDate() + ' ' + now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            } catch (e) {
+                console.error("Fetch failed:", e);
+                assistants = []; updateFiltersUI(); render();
+                resultsCount.textContent = e.name === 'AbortError' ? "Connection timed out. Try refreshing." : "Connection error.";
+                if (noResultsMsg) noResultsMsg.textContent = "Trouble loading data. Please refresh or try again later.";
+            }
         }
 
-        loadAssistantsJSONP();
+        loadAssistants();
 
         // Description Tooltip Logic
         const tooltip = document.createElement('div');
